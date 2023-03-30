@@ -56,6 +56,9 @@ services:
 
 ### Docker CLI
 
+```
+docker build -t yourimagename https://github.com/I-am-PUID-0/pdrcrd.git
+```
 
 ### Portainer
 
