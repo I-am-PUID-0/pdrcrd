@@ -11,21 +11,6 @@ A combined docker image for the unified deployment of **[itsToggle's](https://gi
 A prebuilt image is hosted on [docker hub](https://hub.docker.com/r/iampuid0/pdrcrd) 
 
 
-## Docker Build
-
-# pdrcrd
-
-## Description
-A combined docker image for the unified deployment of **[itsToggle's](https://github.com/itsToggle)** projects -- **[plex_debrid](https://github.com/itsToggle/plex_debrid)** and **[rclone_RD](https://github.com/itsToggle/rclone_RD)**
-
-
-## Features
-
-
-## Docker Hub
-A prebuilt image is hosted on [docker hub](https://hub.docker.com/r/iampuid0/pdrcrd) 
-
-
 ## Docker-compose
 ```
 services:
