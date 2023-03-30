@@ -99,32 +99,3 @@ services:
 ## Buy **[itsToggle](https://github.com/itsToggle)** a beer/coffee? :)
 
 If you enjoy the underlying projects and want to buy itsToggle a beer/coffee, feel free to use his real-debrid [affiliate link](http://real-debrid.com/?id=5708990) or send him a virtual beverage via [PayPal](https://www.paypal.com/paypalme/oidulibbe) :)
-
-
-### Portainer
-
-
-## TODO
-- Test the use of .env files to setup rclone and plex_debrid
-- Add support for setting user/group -- currently runs as root
-- Add docker s6-overlay
-- Add multiarch support - only supports linux/amd64 for now
-- Add automated builds and/or optional local updates to pull the latest updates from **[plex_debrid](https://github.com/itsToggle/plex_debrid)** and **[rclone_RD](https://github.com/itsToggle/rclone_RD)**
-- Evaluate adding Plex
-
-## Community
-
-### pdrcrd
-- For questions related pdrcpd see the github [discussions](https://github.com/I-am-PUID-0/pdrcrd/discussions)
-- or create a new [issue](https://github.com/I-am-PUID-0/pdrcrd/issues) if you find a bug or have an idea for an improvement.
-- or join the pdrcpd [discord server](https://discord.gg/vagjYTwE)
-
-### plex_debrid
-- For questions related to plex_debrid see the github [discussions](https://github.com/itsToggle/plex_debrid/discussions) 
-- or create a new [issue](https://github.com/itsToggle/plex_debrid/issues) if you find a bug or have an idea for an improvement.
-- or join the plex_debrid [discord server](https://discord.gg/u3vTDGjeKE) 
-
-
-## Buy **[itsToggle](https://github.com/itsToggle)** a beer/coffee? :)
-
-If you enjoy the underlying projects and want to buy itsToggle a beer/coffee, feel free to use his real-debrid [affiliate link](http://real-debrid.com/?id=5708990) or send him a virtual beverage via [PayPal](https://www.paypal.com/paypalme/oidulibbe) :)
