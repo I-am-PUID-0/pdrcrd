@@ -5,7 +5,12 @@ A combined docker image for the unified deployment of **[itsToggle's](https://gi
 
 
 ## Features
-
+ - Bind-mounts rclone_RD to the host
+ - RealDebrid API Key passed to rclone_rd and plex_debrid from docker-compose
+ - rclone_RD config automatically generated
+ - rclone_RD flags passed from docker-compose
+ - Fuse.conf allow_other applied within the container vs. the host
+ - Plex server values passed to plex_debrid settings.json from docker-compose
 
 ## Docker Hub
 A prebuilt image is hosted on [docker hub](https://hub.docker.com/r/iampuid0/pdrcrd) 
@@ -106,9 +111,9 @@ Confirm the image is successfully built
 ## Community
 
 ### pdrcrd
-- For questions related pdrcpd see the github [discussions](https://github.com/I-am-PUID-0/pdrcrd/discussions)
+- For questions related pdrcrd see the github [discussions](https://github.com/I-am-PUID-0/pdrcrd/discussions)
 - or create a new [issue](https://github.com/I-am-PUID-0/pdrcrd/issues) if you find a bug or have an idea for an improvement.
-- or join the pdrcpd [discord server](https://discord.gg/vagjYTwE)
+- or join the pdrcrd [discord server](https://discord.gg/vagjYTwE)
 
 ### plex_debrid
 - For questions related to plex_debrid see the github [discussions](https://github.com/itsToggle/plex_debrid/discussions) 
