@@ -1,4 +1,4 @@
-FROM golang:alpine AS builder
+﻿FROM golang:alpine AS builder
 ADD https://github.com/itsToggle/rclone_RD/archive/refs/heads/master.zip /
 RUN \
   apk add --update --no-cache zip && unzip /master.zip && \
