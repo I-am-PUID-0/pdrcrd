@@ -62,12 +62,44 @@ docker build -t yourimagename https://github.com/I-am-PUID-0/pdrcrd.git
 
 ### Portainer
 
+Download the repo files
+
+![build image](https://user-images.githubusercontent.com/36779668/228725571-d0084e89-05c9-4bf5-bea5-6b7cd0e996b4.png)
+
+
+Select "+ Build a new image"
+
+![build image 1](https://user-images.githubusercontent.com/36779668/228723889-f49af0d0-12f0-4837-8c59-6aa64921723b.png)
+
+
+Specify your image name
+
+![build image 2](https://user-images.githubusercontent.com/36779668/228724192-feb82409-f5c0-46b3-a6dc-5d8c9b0f093c.png)
+
+
+Select Web editor and paste the contents of the Dockerfile inside the field
+
+![build image 3](https://user-images.githubusercontent.com/36779668/228724344-6c9de02b-c4bd-4573-9223-6b14d5e9f2ae.png)
+
+
+Select the indentified files 
+
+![build image 4](https://user-images.githubusercontent.com/36779668/228724346-6a2e5641-ff31-4de2-98bc-f17b37bd60f2.png)
+
+Select "Build the image"
+
+![build image 5](https://user-images.githubusercontent.com/36779668/228724347-a6911a5f-40ee-4f02-982f-cc0d977d5b3b.png)
+
+Confirm the image is successfully built
+
+![build image 6](https://user-images.githubusercontent.com/36779668/228724348-20ee3562-167e-47fb-b503-5b7ce1642b5b.png)
+
 
 ## TODO
 - Test the use of .env files to setup rclone and plex_debrid
 - Add support for setting user/group -- currently runs as root
 - Add docker s6-overlay
-- Add multiarch support - only supports linux/amd64 for now
+- Add multiarch support for prebuilt docker hub image - only supports linux/amd64 for now
 - Add automated builds and/or optional local updates to pull the latest updates from **[plex_debrid](https://github.com/itsToggle/plex_debrid)** and **[rclone_RD](https://github.com/itsToggle/rclone_RD)**
 - Evaluate adding Plex
 
