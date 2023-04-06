@@ -21,6 +21,6 @@ RUN \
   chmod 711 rclone-linux && chmod 755 /setup.sh && \
   unzip experimental.zip && rm experimental.zip && \
   mv plex_debrid-experimental/ plex_debrid && rm /plex_debrid/README.md && rm /plex_debrid/Dockerfile && rm -R /plex_debrid/.github && \  
-  pip install -r /plex_debrid/requirements.txt 
+  pip3 install -r /plex_debrid/requirements.txt 
 VOLUME /config  
 CMD ./setup.sh;/bin/sh
