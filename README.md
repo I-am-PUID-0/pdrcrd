@@ -113,7 +113,7 @@ Confirm the image is successfully built
 ### pdrcrd
 - For questions related pdrcrd see the github [discussions](https://github.com/I-am-PUID-0/pdrcrd/discussions)
 - or create a new [issue](https://github.com/I-am-PUID-0/pdrcrd/issues) if you find a bug or have an idea for an improvement.
-- or join the pdrcrd [discord server](https://discord.gg/vagjYTwE)
+- or join the pdrcrd [discord server](https://discord.gg/n5nQRYtrw2)
 
 ### plex_debrid
 - For questions related to plex_debrid see the github [discussions](https://github.com/itsToggle/plex_debrid/discussions) 
