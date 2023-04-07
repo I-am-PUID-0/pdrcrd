@@ -1,0 +1,30 @@
+name: build
+
+on:
+  push:
+    branches: [ "plex_debrid_experimental" ]
+
+jobs:
+  buildx:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2.5.0
+        with:
+          buildkitd-flags: --debug
+      -
+        name: docker hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      - 
+        name: build
+        run: |
+           docker buildx build --push \
+           --tag iampuid0/pdrcrd:experimental_multiarch \
+           --platforms: linux/amd64,linux/arm64 .
