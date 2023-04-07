@@ -32,4 +32,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: I-am-PUID-0/pdrcrd:experimental_multiarch
+          tags: iampuid0/pdrcrd:experimental_multiarch
