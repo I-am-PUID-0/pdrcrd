@@ -2,7 +2,7 @@ name: build
 
 on:
   push:
-    branches: [ "plex_debrid_experimental" ]
+    branches: [ "master" ]
 
 jobs:
   buildx:
