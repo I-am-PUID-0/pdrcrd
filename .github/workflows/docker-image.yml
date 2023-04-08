@@ -5,6 +5,7 @@ on:
     branches: [ "master" ]
     paths-ignore:
       - '**/README.md'
+      - 'Ubuntu/**'
 jobs:
   buildx:
     runs-on: ubuntu-latest

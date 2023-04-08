@@ -141,7 +141,7 @@ select yn in "Yes" "No"; do
         No ) echo $'\n'; break;;
     esac
 done
-echo $'Do you wish to open the rclone_RD mount with windows explorer?\n'
+echo $'If running WSL, do you wish to open the rclone_RD mount with windows explorer?\n'
 select yn in "Yes" "No"; do
     case $yn in
         Yes ) explorer.exe `wslpath -w "$mntdirvar"`.; 
