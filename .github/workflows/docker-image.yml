@@ -1,4 +1,4 @@
-name: build
+name: Docker Hub Build
 
 on:
   push:
@@ -35,4 +35,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/pdrcrd:experimental_multiarch
+          tags: ${{ secrets.DOCKER_USERNAME }}/pdrcrd:latest
