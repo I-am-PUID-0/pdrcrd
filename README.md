@@ -100,6 +100,26 @@ Confirm the image is successfully built
 <img src="https://user-images.githubusercontent.com/36779668/228724348-20ee3562-167e-47fb-b503-5b7ce1642b5b.png" width="250" height="100">
 
 
+## Install script for Ubuntu and/or WSL
+Whether starting with a clean install of Ubuntu (22.04 LTS tested), an established Docker setup on Ubuntu, or following the [Windows Setup Guide (Docker/WSL)](https://discord.com/channels/1090745199891861524/1091543927842148452 ) , this script will walk the user through a prompted installation of Docker and/or pdrcrd. For users utilizing WSL, a prompt is also provided post setup that allows the user to open the newly mounted rclone_RD directory inside the Windows explore of the host machine. 
+
+Paste the below into your Ubuntu CLI. 
+```curl -O https://github.com/I-am-PUID-0/pdrcrd/blob/master/Ubuntu/pdrcrd_ubuntu_install.sh && chmod +x pdrcrd_ubuntu_install.sh```
+
+
+
+Then paste the following: 
+```./pdrcrd_ubuntu_install.sh```
+
+
+
+Follow the prompts and enjoy 🙂
+
+
+NOTE: Testing has not been performed on any distros other than Ubuntu 22.04 LTS and WSL 2 on Windows 11. If you experience any issues, please post them on GitHub. https://github.com/I-am-PUID-0/pdrcrd/issues 
+
+
+
 ## TODO
 - Test the use of .env files to setup rclone and plex_debrid
 - Add support for setting user/group -- currently runs as root
