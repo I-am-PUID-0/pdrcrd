@@ -30,10 +30,10 @@ done
 echo $'Do you wish to install pdrcrd?\n'
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) echo $'\nDo you wish to set the config directory?  defualt: /etc/docker/config \n';
+        Yes ) echo $'\nDo you wish to set the config directory?  default: /etc/docker/config \n';
                 select yn in "Yes" "No"; do
                     case $yn in
-                        Yes ) echo  $'\nPlease input the absolute path for your config directory. defualt: /etc/docker/config \n';
+                        Yes ) echo  $'\nPlease input the absolute path for your config directory. default: /etc/docker/config \n';
                               read -p 'Config Path: ' configpathvar && echo $'\n';
                               echo $'The config directory path is set to' $configpathvar && echo $'\n';
                               break;;
@@ -43,10 +43,10 @@ select yn in "Yes" "No"; do
                               break;;
                     esac
                 done  
-              echo $'Do you wish to set the log directory?  defualt: /etc/docker/log \n';
+              echo $'Do you wish to set the log directory?  default: /etc/docker/log \n';
                 select yn in "Yes" "No"; do
                     case $yn in
-                        Yes ) echo $'\nPlease input the absolute path for your log directory. defualt: /etc/docker/log \n';
+                        Yes ) echo $'\nPlease input the absolute path for your log directory. default: /etc/docker/log \n';
                               read -p 'Log Path: ' logpathvar && echo $'\n';
                               echo "The log directory path is set to" $logpathvar && echo $'\n';
                               break;;
@@ -56,10 +56,10 @@ select yn in "Yes" "No"; do
                               break;;
                     esac
                 done  
-              echo $'Do you wish to set the rclone mount directory?  defualt: /etc/docker/mnt \n';
+              echo $'Do you wish to set the rclone mount directory?  default: /etc/docker/mnt \n';
                 select yn in "Yes" "No"; do
                     case $yn in
-                        Yes ) echo $'\nPlease input the absolute path for your rclone mount directory. defualt: /etc/docker/log \n';
+                        Yes ) echo $'\nPlease input the absolute path for your rclone mount directory. default: /etc/docker/log \n';
                               read -p 'Rclone Mount Directory: ' mntdirvar && echo $'\n';
                               echo "The rclone mount directory path is set to" $mntdirevar && echo $'\n';
                               break;;
@@ -69,7 +69,7 @@ select yn in "Yes" "No"; do
                               break;;
                     esac
                 done                  
-              echo $'Do you wish to set the rclone mount name?  defualt: realdebrid \n';
+              echo $'Do you wish to set the rclone mount name?  default: realdebrid \n';
                 select yn in "Yes" "No"; do
                     case $yn in
                         Yes ) echo $'\nPlease input the rclone mount name \n';
