@@ -124,7 +124,6 @@ NOTE: Testing has not been performed on any distros other than Ubuntu 22.04 LTS 
 - Test the use of .env files to setup rclone and plex_debrid
 - Add support for setting user/group -- currently runs as root
 - Add docker s6-overlay
-- Add multiarch support for prebuilt docker hub image - only supports linux/amd64 for now
 - Add automated builds and/or optional local updates to pull the latest updates from **[plex_debrid](https://github.com/itsToggle/plex_debrid)** and **[rclone_RD](https://github.com/itsToggle/rclone_RD)**
 - Evaluate adding Plex
 
