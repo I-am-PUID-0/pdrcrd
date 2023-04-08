@@ -111,12 +111,12 @@ Confirm the image is successfully built
 ## Community
 
 ### pdrcrd
-- For questions related pdrcrd see the github [discussions](https://github.com/I-am-PUID-0/pdrcrd/discussions)
+- For questions related to pdrcrd, see the GitHub [discussions](https://github.com/I-am-PUID-0/pdrcrd/discussions)
 - or create a new [issue](https://github.com/I-am-PUID-0/pdrcrd/issues) if you find a bug or have an idea for an improvement.
 - or join the pdrcrd [discord server](https://discord.gg/n5nQRYtrw2)
 
 ### plex_debrid
-- For questions related to plex_debrid see the github [discussions](https://github.com/itsToggle/plex_debrid/discussions) 
+- For questions related to plex_debrid, see the GitHub [discussions](https://github.com/itsToggle/plex_debrid/discussions) 
 - or create a new [issue](https://github.com/itsToggle/plex_debrid/issues) if you find a bug or have an idea for an improvement.
 - or join the plex_debrid [discord server](https://discord.gg/u3vTDGjeKE) 
 
@@ -124,3 +124,7 @@ Confirm the image is successfully built
 ## Buy **[itsToggle](https://github.com/itsToggle)** a beer/coffee? :)
 
 If you enjoy the underlying projects and want to buy itsToggle a beer/coffee, feel free to use his real-debrid [affiliate link](http://real-debrid.com/?id=5708990) or send him a virtual beverage via [PayPal](https://www.paypal.com/paypalme/oidulibbe) :)
+
+
+## GitHub Workflow Status
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/I-am-PUID-0/pdrcrd/docker-image.yml)
