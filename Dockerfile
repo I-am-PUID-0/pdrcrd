@@ -6,7 +6,7 @@ RUN \
 
 FROM alpine:latest
 COPY --from=builder /go/rclone_RD-master/rclone /rclone-linux
-ADD https://github.com/itsToggle/plex_debrid/archive/refs/heads/experimental.zip /
+ADD https://github.com/itsToggle/plex_debrid/archive/refs/heads/main.zip /
 ADD setup.sh /
 ADD pd_setup.py /
 ADD settings-default.json /
@@ -19,8 +19,8 @@ RUN \
   pip3 install --no-cache --upgrade pip setuptools python-dotenv && \
   mkdir /config && touch /config/ignored.txt && \     
   chmod 711 rclone-linux && chmod 755 /setup.sh && \
-  unzip experimental.zip && rm experimental.zip && \
-  mv plex_debrid-experimental/ plex_debrid && rm /plex_debrid/README.md && rm /plex_debrid/Dockerfile && rm -R /plex_debrid/.github && \  
+  unzip main.zip && rm main.zip && \
+  mv plex_debrid-main/ plex_debrid && rm /plex_debrid/README.md && rm /plex_debrid/Dockerfile && rm -R /plex_debrid/.github && \  
   pip3 install -r /plex_debrid/requirements.txt 
 VOLUME /config  
 CMD ./setup.sh;/bin/sh
