@@ -1,6 +1,8 @@
 name: Docker Hub Build
 
 on:
+  schedule:
+  - cron: "0 0 * * *"
   push:
     branches: [ "master" ]
     paths-ignore:
