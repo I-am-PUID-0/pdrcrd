@@ -14,7 +14,7 @@ ENV \
   XDG_CONFIG_HOME=/config \
   TERM=xterm 
 RUN \
-  apk add --update --no-cache tzdata fuse py3-pip py3-dotenv && ln -sf python3 /usr/bin/python && \
+  apk add --update --no-cache tzdata fuse build-base py3-pip py3-dotenv && ln -sf python3 /usr/bin/python && \
   mkdir /config && touch /config/ignored.txt && \     
   chmod 711 rclone-linux && chmod 755 /setup.sh && \
   unzip main.zip && rm main.zip && \
