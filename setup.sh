@@ -1,6 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 set -e
-echo "beta v0.26"
 echo "Setting up rclone_RD"
 umount /data/$RCLONE_MOUNT_NAME || true 2>/dev/null
 mkdir -p /data/$RCLONE_MOUNT_NAME
@@ -28,11 +27,11 @@ if [ ! -f "$FILE" ];
 then cp /settings-default.json /config/settings.json && python pd_setup.py
 else python pd_setup.py	
 fi
-stdbuf -oL printf "%s" "Waiting for Plex Server ..."
+printf "%s" "Waiting for Plex Server ..."
 if ! wget --wait=1 --no-verbose --tries=0 --spider $PLEX_ADDRESS/identity &> /dev/null; then
     while ! wget --wait=1 --no-verbose --tries=0 --spider $PLEX_ADDRESS/identity &> /dev/null
 do
-    stdbuf -oL printf "%c" "."
+    printf "%c" "."
     sleep 1
 done
 fi
