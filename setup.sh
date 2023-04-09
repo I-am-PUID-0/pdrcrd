@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 echo "Setting up rclone_RD"
 umount /data/$RCLONE_MOUNT_NAME || true 2>/dev/null
