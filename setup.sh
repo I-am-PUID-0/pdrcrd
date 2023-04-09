@@ -28,11 +28,11 @@ if [ ! -f "$FILE" ];
 then cp /settings-default.json /config/settings.json && python pd_setup.py
 else python pd_setup.py	
 fi
-printf "%s" "Waiting for Plex Server ..."
+stdbuf -oL printf "%s" "Waiting for Plex Server ..."
 if ! wget --wait=1 --no-verbose --tries=0 --spider $PLEX_ADDRESS/identity &> /dev/null; then
     while ! wget --wait=1 --no-verbose --tries=0 --spider $PLEX_ADDRESS/identity &> /dev/null
 do
-    printf "%c" "."
+    stdbuf -oL printf "%c" "."
     sleep 1
 done
 fi
