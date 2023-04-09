@@ -28,5 +28,14 @@ if [ ! -f "$FILE" ];
 then cp /settings-default.json /config/settings.json && python pd_setup.py
 else python pd_setup.py	
 fi
-echo "Starting plex_debrid" && wait
+printf "%s" "Waiting for Plex Server ..."
+if ! wget --wait=1 --no-verbose --tries=0 --spider $PLEX_ADDRESS/identity &> /dev/null; then
+    while ! wget --wait=1 --no-verbose --tries=0 --spider $PLEX_ADDRESS/identity &> /dev/null
+do
+    printf "%c" "."
+    sleep 1
+done
+fi
+printf "\n%s\n"  "Plex Server is online"
+echo "Starting plex_debrid"
 python /plex_debrid/main.py --config-dir /config
