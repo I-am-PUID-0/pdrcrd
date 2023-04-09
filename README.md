@@ -104,7 +104,7 @@ Confirm the image is successfully built
 Whether starting with a clean install of Ubuntu (22.04 LTS tested), an established Docker setup on Ubuntu, or following the [Windows Setup Guide (Docker/WSL)](https://discord.com/channels/1090745199891861524/1091543927842148452 ) , this script will walk the user through a prompted installation of Docker and/or pdrcrd. For users utilizing WSL, a prompt is also provided post setup that allows the user to open the newly mounted rclone_RD directory inside the Windows explore of the host machine. 
 
 Paste the below into your Ubuntu CLI. 
-```curl -O https://github.com/I-am-PUID-0/pdrcrd/blob/master/Ubuntu/pdrcrd_ubuntu_install.sh && chmod +x pdrcrd_ubuntu_install.sh```
+```curl -o pdrcrd_ubuntu_install.sh https://raw.githubusercontent.com/I-am-PUID-0/pdrcrd/master/Ubuntu/pdrcrd_ubuntu_install.sh  && chmod +x pdrcrd_ubuntu_install.sh```
 
 
 
