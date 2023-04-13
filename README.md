@@ -11,6 +11,7 @@ A combined docker image for the unified deployment of **[itsToggle's](https://gi
  - rclone_RD flags passed from docker-compose
  - Fuse.conf allow_other applied within the container vs. the host
  - Plex server values passed to plex_debrid settings.json from docker-compose
+ - Automatic update of plex_debrid to the latest version
 
 ## Docker Hub
 A prebuilt image is hosted on [docker hub](https://hub.docker.com/r/iampuid0/pdrcrd) 
@@ -47,6 +48,8 @@ services:
       - PLEX_ADDRESS=http://localhost:32400 #required - format must include http:// and have no trailing characters after 32400 e.g / 
 #       - SHOW_MENU=false  #optional - if used, value must be true or false -- default is true
 #       - PD_LOGFILE=true  #optional - if used, value must be true or false -- default is false
+#       - AUTO_UPDATE=WeHadABabyItsABoy   #optional - uncommenting will enable auto update to the latest version of plex_debrid locally in the container. No values are required.
+#       - AUTO_UPDATE_INTERVAL=24 #optional - if used, value must be an integer -- default is 24 hours
     devices:
       - /dev/fuse:/dev/fuse:rwm
     cap_add:
@@ -118,14 +121,24 @@ Follow the prompts and enjoy 🙂
 
 NOTE: Testing has not been performed on any distros other than Ubuntu 22.04 LTS and WSL 2 on Windows 11. If you experience any issues, please post them on GitHub. https://github.com/I-am-PUID-0/pdrcrd/issues 
 
+## Automatic Updates
 
+If you would like to enable automatic updates, you can do so by uncommenting the AUTO_UPDATE variable in your docker-compose.yml file. This will automatically update plex_debrid to the latest version on startup and at the interval specified by AUTO_UPDATE_INTERVAL. No values are required for AUTO_UPDATE.
+
+The default value for AUTO_UPDATE_INTERVAL is 24 hours. If you would like to change this, you can do so by uncommenting the AUTO_UPDATE_INTERVAL variable in your docker-compose.yml file and setting the value to the number of hours you would like to wait between updates.
+
+The automatic update is performed by pulling the latest version of plex_debrid from GitHub and replacing the existing plex_debrid container files. This will not affect any of your settings or configuration.
+
+plex_debrid will be restarted automatically after the update is complete. As such, if you have any active scrapes running in plex_debrid, they will be interrupted and will be restarted once plex_debrid reloads. However, due to lack of a caching feature within plex_debrid for items that have not exceeded thier retry limit, the retry count will revert to 0 for any items that were in the process of being scraped when the update occurred. This means that any items that were in the process of being scraped when the update occurred will be re-scraped from the beginning. This is a known issue and will be addressed in a future update.
+
+The benfit of this automatic update feature is that you will always be running the latest version of plex_debrid. This will ensure that you are always taking advantage of the latest features and bug fixes. It also means that the container will not need to be rebuilt or restarted by pulling a new image when a new version of plex_debrid is released. This will save you time and bandwidth, but most importantly, it will prevent the rclone_RD mount from being reset and severing the connection to your Plex server. Thus, the Plex server will not need to be restarted due to applying updates for the inbuilt applications.
 
 ## TODO
 - Test the use of .env files to setup rclone and plex_debrid
 - Add support for setting user/group -- currently runs as root
 - Add docker s6-overlay
-- Add automated builds and/or optional local updates to pull the latest updates from **[plex_debrid](https://github.com/itsToggle/plex_debrid)** and **[rclone_RD](https://github.com/itsToggle/rclone_RD)**
-- Evaluate adding Plex
+- Evaluate adding Plex Media Server to the container
+- Add support for other Media Servers - Emby, Jellyfin, etc.
 
 ## Community
 
