@@ -9,6 +9,9 @@ on:
     paths-ignore:
       - '**/README.md'
       - 'Ubuntu/**'
+      - '.github/**'
+      - '.gitattributes'
+      - '.gitignore'
 jobs:
   buildx:
     runs-on: ubuntu-latest
