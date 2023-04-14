@@ -46,10 +46,10 @@ services:
       - PLEX_USER=yourplexusername  #required 
       - PLEX_TOKEN=yourplextoken  #required - see link for detail https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/
       - PLEX_ADDRESS=http://localhost:32400 #required - format must include http:// and have no trailing characters after 32400 e.g / 
-#       - SHOW_MENU=false  #optional - if used, value must be true or false -- default is true
-#       - PD_LOGFILE=true  #optional - if used, value must be true or false -- default is false
-#       - AUTO_UPDATE=WeHadABabyItsABoy   #optional - uncommenting will enable auto update to the latest version of plex_debrid locally in the container. No values are required.
-#       - AUTO_UPDATE_INTERVAL=24 #optional - if used, value must be an integer -- default is 24 hours
+#      - SHOW_MENU=false  #optional - if used, value must be true or false -- default is true
+#      - PD_LOGFILE=true  #optional - if used, value must be true or false -- default is false
+#      - AUTO_UPDATE=WeHadABabyItsABoy   #optional - uncommenting will enable auto update to the latest version of plex_debrid locally in the container. No values are required.
+#      - AUTO_UPDATE_INTERVAL=24 #optional - if used, value must be an integer -- default is 24 hours
     devices:
       - /dev/fuse:/dev/fuse:rwm
     cap_add:
