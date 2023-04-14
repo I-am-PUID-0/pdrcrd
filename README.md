@@ -127,18 +127,19 @@ If you would like to enable automatic updates, you can do so by uncommenting the
 
 The default value for AUTO_UPDATE_INTERVAL is 24 hours. If you would like to change this, you can do so by uncommenting the AUTO_UPDATE_INTERVAL variable in your docker-compose.yml file and setting the value to the number of hours you would like to wait between updates.
 
-The automatic update is performed by pulling the latest version of plex_debrid from GitHub and replacing the existing plex_debrid container files. This will not affect any of your settings or configuration.
+The automatic update is performed by comparing the installed version with the version available on GitHub. If a delta exists, it continues by pulling the latest version of plex_debrid from GitHub and replacing the existing plex_debrid container files. This will not affect any of your settings or configuration.
 
-plex_debrid will be restarted automatically after the update is complete. As such, if you have any active scrapes running in plex_debrid, they will be interrupted and will be restarted once plex_debrid reloads. However, due to lack of a caching feature within plex_debrid for items that have not exceeded thier retry limit, the retry count will revert to 0 for any items that were in the process of being scraped when the update occurred. This means that any items that were in the process of being scraped when the update occurred will be re-scraped from the beginning. This is a known issue and will be addressed in a future update.
+plex_debrid will be restarted automatically after the update is complete. As such, if you have any active scrapes running in plex_debrid, they will be interrupted and will be restarted once plex_debrid reloads. However, due to the lack of a caching feature within plex_debrid for items that have not exceeded their retry limit, the retry count will revert to 0 for any items that were in the process of being scraped when the update occurred. This means that any items that were in the process of being scraped when the update occurred will be re-scraped from the beginning. This is a known issue and will be addressed in a future update.
 
-The benfit of this automatic update feature is that you will always be running the latest version of plex_debrid. This will ensure that you are always taking advantage of the latest features and bug fixes. It also means that the container will not need to be rebuilt or restarted by pulling a new image when a new version of plex_debrid is released. This will save you time and bandwidth, but most importantly, it will prevent the rclone_RD mount from being reset and severing the connection to your Plex server. Thus, the Plex server will not need to be restarted due to applying updates for the inbuilt applications.
+The benefit of this automatic update feature is that you will always be running the latest version of plex_debrid. This will ensure that you are always taking advantage of the latest features and bug fixes. It also means that the container will not need to be rebuilt or restarted by pulling a new image when a new version of plex_debrid is released. This will save you time and bandwidth, but most importantly, it will prevent the rclone_RD mount from being reset and severing the connection to your Plex server. Thus, the Plex server will not need to be restarted due to applying updates for the inbuilt applications.
+
 
 ## TODO
 - Test the use of .env files to setup rclone and plex_debrid
 - Add support for setting user/group -- currently runs as root
 - Add docker s6-overlay
 - Evaluate adding Plex Media Server to the container
-- Add support for other Media Servers - Emby, Jellyfin, etc.
+- Add support for other Media Servers - Emby, Jellyfin, etc. -- currently only supports Plex
 
 ## Community
 
