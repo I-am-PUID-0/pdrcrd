@@ -5,7 +5,7 @@ on:
   - cron: "0 0 * * *"
   workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches: [ "rclone_RD_artifical-sorting" ]
     paths-ignore:
       - '**/README.md'
       - 'Ubuntu/**'
@@ -41,4 +41,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/pdrcrd:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/pdrcrd:rclone_RD_artifical-sorting

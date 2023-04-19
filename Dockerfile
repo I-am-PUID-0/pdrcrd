@@ -1,11 +1,11 @@
 ﻿FROM golang:alpine AS builder
-ADD https://github.com/itsToggle/rclone_RD/archive/refs/heads/master.zip /
+ADD https://github.com/itsToggle/rclone_RD/archive/refs/heads/artificial-sorting.zip /
 RUN \
   apk add --update --no-cache zip && unzip /master.zip && \
-  cd rclone_RD-master && CGO_ENABLED=0 go build -tags cmount
+  cd rclone_RD-artificial-sorting && CGO_ENABLED=0 go build -tags cmount
 
 FROM alpine:latest
-COPY --from=builder /go/rclone_RD-master/rclone /rclone-linux
+COPY --from=builder /go/rclone_RD-artificial-sorting/rclone /rclone-linux
 ADD https://github.com/itsToggle/plex_debrid/archive/refs/heads/main.zip /
 ADD setup.sh /
 ADD pd_setup.py /
