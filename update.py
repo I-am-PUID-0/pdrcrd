@@ -33,19 +33,19 @@ def update_available():
         version = json_data['version'][0]
         print (dt(),"Currently installed [v"+version+"]")
     try:
-        response = requests.get('https://raw.githubusercontent.com/itsToggle/plex_debrid/main/ui/ui_settings.py',timeout=0.25)
+        response = requests.get('https://raw.githubusercontent.com/itsToggle/plex_debrid/experimental/ui/ui_settings.py',timeout=0.25)
         response = response.content.decode('utf8')
         if regex.search("(?<=')([0-9]+\.[0-9]+)(?=')",response):
             v = regex.search("(?<=')([0-9]+\.[0-9]+)(?=')",response).group()
             if float(version) < float(v):
                 target = '/plex_debrid'
-                with requests.get('https://github.com/itsToggle/plex_debrid/archive/refs/heads/main.zip') as r:
+                with requests.get('https://github.com/itsToggle/plex_debrid/archive/refs/heads/experimental.zip') as r:
                     z = zipfile.ZipFile(io.BytesIO(r.content))
                     for file_info in z.infolist():
                         if file_info.is_dir():
                             continue
                         file_path = file_info.filename
-                        if not file_path.startswith('plex_debrid-main/'):
+                        if not file_path.startswith('plex_debrid-experimental/'):
                             continue
                         fpath = file_path.split('/', 1)[1]
                         fpath = os.path.join(target, fpath)
