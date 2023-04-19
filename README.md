@@ -11,6 +11,7 @@ A combined docker image for the unified deployment of **[itsToggle's](https://gi
  - rclone_RD flags passed from docker-compose
  - Fuse.conf allow_other applied within the container vs. the host
  - Plex server values passed to plex_debrid settings.json from docker-compose
+ - Automatic update of plex_debrid to the latest version
 
 ## Docker Hub
 A prebuilt image is hosted on [docker hub](https://hub.docker.com/r/iampuid0/pdrcrd) 
@@ -45,8 +46,10 @@ services:
       - PLEX_USER=yourplexusername  #required 
       - PLEX_TOKEN=yourplextoken  #required - see link for detail https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/
       - PLEX_ADDRESS=http://localhost:32400 #required - format must include http:// and have no trailing characters after 32400 e.g / 
-#       - SHOW_MENU=false  #optional - if used, value must be true or false -- default is true
-#       - PD_LOGFILE=true  #optional - if used, value must be true or false -- default is false
+#      - SHOW_MENU=false  #optional - if used, value must be true or false -- default is true
+#      - PD_LOGFILE=true  #optional - if used, value must be true or false -- default is false
+#      - AUTO_UPDATE=WeHadABabyItsABoy   #optional - uncommenting will enable auto update to the latest version of plex_debrid locally in the container. No values are required.
+#      - AUTO_UPDATE_INTERVAL=24 #optional - if used, value must be an integer -- default is 24 hours
     devices:
       - /dev/fuse:/dev/fuse:rwm
     cap_add:
@@ -100,23 +103,53 @@ Confirm the image is successfully built
 <img src="https://user-images.githubusercontent.com/36779668/228724348-20ee3562-167e-47fb-b503-5b7ce1642b5b.png" width="250" height="100">
 
 
+## Install script for Ubuntu and/or WSL
+Whether starting with a clean install of Ubuntu (22.04 LTS tested), an established Docker setup on Ubuntu, or following the [Windows Setup Guide (Docker/WSL)](https://discord.com/channels/1090745199891861524/1091543927842148452 ) , this script will walk the user through a prompted installation of Docker and/or pdrcrd. For users utilizing WSL, a prompt is also provided post setup that allows the user to open the newly mounted rclone_RD directory inside the Windows explore of the host machine. 
+
+Paste the below into your Ubuntu CLI. 
+```curl -o pdrcrd_ubuntu_install.sh https://raw.githubusercontent.com/I-am-PUID-0/pdrcrd/master/Ubuntu/pdrcrd_ubuntu_install.sh  && chmod +x pdrcrd_ubuntu_install.sh```
+
+
+
+Then paste the following: 
+```./pdrcrd_ubuntu_install.sh```
+
+
+
+Follow the prompts and enjoy 🙂
+
+
+NOTE: Testing has not been performed on any distros other than Ubuntu 22.04 LTS and WSL 2 on Windows 11. If you experience any issues, please post them on GitHub. https://github.com/I-am-PUID-0/pdrcrd/issues 
+
+## Automatic Updates
+
+If you would like to enable automatic updates, you can do so by uncommenting the AUTO_UPDATE variable in your docker-compose.yml file. This will automatically update plex_debrid to the latest version on startup and at the interval specified by AUTO_UPDATE_INTERVAL. No values are required for AUTO_UPDATE.
+
+The default value for AUTO_UPDATE_INTERVAL is 24 hours. If you would like to change this, you can do so by uncommenting the AUTO_UPDATE_INTERVAL variable in your docker-compose.yml file and setting the value to the number of hours you would like to wait between updates.
+
+The automatic update is performed by comparing the installed version with the version available on GitHub. If a delta exists, it continues by pulling the latest version of plex_debrid from GitHub and replacing the existing plex_debrid container files. This will not affect any of your settings or configuration.
+
+plex_debrid will be restarted automatically after the update is complete. As such, if you have any active scrapes running in plex_debrid, they will be interrupted and will be restarted once plex_debrid reloads. However, due to the lack of a caching feature within plex_debrid for items that have not exceeded their retry limit, the retry count will revert to 0 for any items that were in the process of being scraped when the update occurred. This means that any items that were in the process of being scraped when the update occurred will be re-scraped from the beginning. This is a known issue and will be addressed in a future update.
+
+The benefit of this automatic update feature is that you will always be running the latest version of plex_debrid. This will ensure that you are always taking advantage of the latest features and bug fixes. It also means that the container will not need to be rebuilt or restarted by pulling a new image when a new version of plex_debrid is released. This will save you time and bandwidth, but most importantly, it will prevent the rclone_RD mount from being reset and severing the connection to your Plex server. Thus, the Plex server will not need to be restarted due to applying updates for the inbuilt applications.
+
+
 ## TODO
 - Test the use of .env files to setup rclone and plex_debrid
 - Add support for setting user/group -- currently runs as root
 - Add docker s6-overlay
-- Add multiarch support for prebuilt docker hub image - only supports linux/amd64 for now
-- Add automated builds and/or optional local updates to pull the latest updates from **[plex_debrid](https://github.com/itsToggle/plex_debrid)** and **[rclone_RD](https://github.com/itsToggle/rclone_RD)**
-- Evaluate adding Plex
+- Evaluate adding Plex Media Server to the container
+- Add support for other Media Servers - Emby, Jellyfin, etc. -- currently only supports Plex
 
 ## Community
 
 ### pdrcrd
-- For questions related pdrcrd see the github [discussions](https://github.com/I-am-PUID-0/pdrcrd/discussions)
+- For questions related to pdrcrd, see the GitHub [discussions](https://github.com/I-am-PUID-0/pdrcrd/discussions)
 - or create a new [issue](https://github.com/I-am-PUID-0/pdrcrd/issues) if you find a bug or have an idea for an improvement.
 - or join the pdrcrd [discord server](https://discord.gg/n5nQRYtrw2)
 
 ### plex_debrid
-- For questions related to plex_debrid see the github [discussions](https://github.com/itsToggle/plex_debrid/discussions) 
+- For questions related to plex_debrid, see the GitHub [discussions](https://github.com/itsToggle/plex_debrid/discussions) 
 - or create a new [issue](https://github.com/itsToggle/plex_debrid/issues) if you find a bug or have an idea for an improvement.
 - or join the plex_debrid [discord server](https://discord.gg/u3vTDGjeKE) 
 
@@ -124,3 +157,7 @@ Confirm the image is successfully built
 ## Buy **[itsToggle](https://github.com/itsToggle)** a beer/coffee? :)
 
 If you enjoy the underlying projects and want to buy itsToggle a beer/coffee, feel free to use his real-debrid [affiliate link](http://real-debrid.com/?id=5708990) or send him a virtual beverage via [PayPal](https://www.paypal.com/paypalme/oidulibbe) :)
+
+
+## GitHub Workflow Status
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/I-am-PUID-0/pdrcrd/docker-image.yml)
