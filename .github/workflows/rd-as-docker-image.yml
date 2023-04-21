@@ -1,4 +1,4 @@
-name: Docker Hub Build
+name: RD AS Docker Hub Build
 
 on:
   schedule:
