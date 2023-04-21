@@ -1,4 +1,4 @@
-name: Docker Hub Build
+name: PD-X Docker Hub Build
 
 on:
   schedule:
