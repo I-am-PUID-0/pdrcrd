@@ -42,8 +42,7 @@
     "Jellyfin API Key": "",
     "Jellyfin server address": "http://localhost:8096",
     "Sources": [
-        "rarbg",
-        "1337x"
+        "torrentio"
     ],
     "Versions": [
         [
@@ -84,7 +83,7 @@
                     "title",
                     "requirement",
                     "exclude",
-                    "[^A-CE-Z0-9](CAM|TS|TC)[^A-Z0-9]"
+                    "([^A-Z0-9]|HD|HQ)(CAM|T(ELE)?(S(YNC)?|C(INE)?)|ADS|HINDI)([^A-Z0-9]|RIP|$)"
                 ],
                 [
                     "title",
@@ -108,7 +107,7 @@
                     "title",
                     "preference",
                     "include",
-                    "(EXTENDED|REMASTERED)"
+                    "(EXTENDED|REMASTERED|DIRECTORS|THEATRICAL|UNRATED|UNCUT|CRITERION|ANNIVERSARY|COLLECTORS|LIMITED|SPECIAL|DELUXE|SUPERBIT|RESTORED|REPACK)"
                 ],
                 [
                     "size",
@@ -274,6 +273,7 @@
     "Nyaa parameters": "&c=1_0&s=seeders&o=desc",
     "Nyaa sleep time": "5",
     "Nyaa proxy": "nyaa.si",
+    "Torrentio Scraper Parameters": "https://torrentio.strem.fun/sort=qualitysize|qualityfilter=480p,scr,cam/manifest.json",
     "Debrid Services": [
         "Real Debrid"
     ],
@@ -287,7 +287,7 @@
     "Debug printing": "false",
     "Log to file": "false",
     "version": [
-        "2.81",
+        "2.92",
         "Settings compatible update",
         []
     ]
