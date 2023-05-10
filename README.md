@@ -22,34 +22,21 @@ A prebuilt image is hosted on [docker hub](https://hub.docker.com/r/iampuid0/pdr
 services:
   pdrcrd:
     container_name: pdrcrd
-    image: iampuid0/pdrcrd:latest  #image name you assigned with docker build using the dockerfile or pull pre-built image from iampuid0/pdrcrd:latest
+    image: iampuid0/pdrcrd:latest  
     stdin_open: true # docker run -i
     tty: true        # docker run -t    
     volumes:
-      - your/host/path/config:/config # rclone.conf & settings.json will both be here on the host CAUTION: rclone.conf is overwritten upon start/restart of the container
-      - your/host/path/log:/log # logs will be here on the host
-      - your/host/path/mnt:/data:shared #rclone mount will be here on the host  
+      - your/host/path/config:/config       # rclone.conf & settings.json will both be here on the host CAUTION: rclone.conf is overwritten upon start/restart of the container. Do NOT use an existing rclone.conf file if you have other rclone services.
+      - your/host/path/log:/log     # logs will be here on the host
+      - your/host/path/mnt:/data:shared     #rclone mount will be here on the host  
     environment:
       - TZ=America/New_York
-      - RD_API_KEY=yourrealdebridapikey
-      - RCLONE_MOUNT_NAME=yourmountname
-      - RCLONE_LOG_LEVEL=INFO
-      - RCLONE_LOG_FILE=/log/logfilename.txt  
-      - RCLONE_DIR_CACHE_TIME=10s #optional, but recommended as default
-#      - RCLONE_CACHE_DIR=/cache #optional
-#      - RCLONE_VFS_CACHE_MODE=full #optional
-#      - RCLONE_VFS_CACHE_MAX_SIZE=100G #optional
-#      - RCLONE_VFS_CACHE_MAX_AGE=1h #optional
-#      - RCLONE_DIR_PERMS=777 #optional, not functional in beta
-#      - RCLONE_FILE_PERMS=777 #optional, not functional in beta
-#      - RCLONE_UMASK= #optional, not functional in beta
-      - PLEX_USER=yourplexusername  #required 
-      - PLEX_TOKEN=yourplextoken  #required - see link for detail https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/
-      - PLEX_ADDRESS=http://localhost:32400 #required - format must include http:// and have no trailing characters after 32400 e.g / 
-#      - SHOW_MENU=false  #optional - if used, value must be true or false -- default is true
-#      - PD_LOGFILE=true  #optional - if used, value must be true or false -- default is false
-#      - AUTO_UPDATE=WeHadABabyItsABoy   #optional - uncommenting will enable auto update to the latest version of plex_debrid locally in the container. No values are required.
-#      - AUTO_UPDATE_INTERVAL=24 #optional - if used, value must be an integer -- default is 24 hours
+      - RD_API_KEY=
+      - RCLONE_MOUNT_NAME=
+      - RCLONE_DIR_CACHE_TIME=10s
+      - PLEX_USER=
+      - PLEX_TOKEN=
+      - PLEX_ADDRESS=
     devices:
       - /dev/fuse:/dev/fuse:rwm
     cap_add:
@@ -107,7 +94,7 @@ Confirm the image is successfully built
 Whether starting with a clean install of Ubuntu (22.04 LTS tested), an established Docker setup on Ubuntu, or following the [Windows Setup Guide (Docker/WSL)](https://discord.com/channels/1090745199891861524/1091543927842148452 ) , this script will walk the user through a prompted installation of Docker and/or pdrcrd. For users utilizing WSL, a prompt is also provided post setup that allows the user to open the newly mounted rclone_RD directory inside the Windows explore of the host machine. 
 
 Paste the below into your Ubuntu CLI. 
-```curl -o pdrcrd_ubuntu_install.sh https://raw.githubusercontent.com/I-am-PUID-0/pdrcrd/master/Ubuntu/pdrcrd_ubuntu_install.sh  && chmod +x pdrcrd_ubuntu_install.sh```
+```sudo curl -o pdrcrd_ubuntu_install.sh https://raw.githubusercontent.com/I-am-PUID-0/pdrcrd/master/Ubuntu/pdrcrd_ubuntu_install.sh  && sudo chmod +x pdrcrd_ubuntu_install.sh```
 
 
 
@@ -133,6 +120,31 @@ plex_debrid will be restarted automatically after the update is complete. As suc
 
 The benefit of this automatic update feature is that you will always be running the latest version of plex_debrid. This will ensure that you are always taking advantage of the latest features and bug fixes. It also means that the container will not need to be rebuilt or restarted by pulling a new image when a new version of plex_debrid is released. This will save you time and bandwidth, but most importantly, it will prevent the rclone_RD mount from being reset and severing the connection to your Plex server. Thus, the Plex server will not need to be restarted due to applying updates for the inbuilt applications.
 
+### Environment Variables
+
+To customize some properties of the container, the following environment
+variables can be passed via the `-e` parameter (one for each variable).  Value
+of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
+
+| Variable       | Description                                  | Default | Required for rclone_RD| Required for plex_debrid|
+|----------------|----------------------------------------------|---------|:-:|:-:|
+|`TZ`| [TimeZone](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones) used by the container. | `America/New_York` |
+|`RD_API_KEY`| [RealDebrid API key](https://real-debrid.com/apitoken). | ` ` | :heavy_check_mark:| :heavy_check_mark:|
+|`RCLONE_MOUNT_NAME`| Name for the rclone mount. | ` ` | :heavy_check_mark:|
+|`RCLONE_LOG_LEVEL`| [Log level](https://rclone.org/docs/#log-level-level) for rclone. | `NOTICE` |
+|`RCLONE_LOG_FILE`| [Log file](https://rclone.org/docs/#log-file-file) for rclone. | `/log/RCLONE_MOUNT_NAME.txt` |
+|`RCLONE_DIR_CACHE_TIME`| [Time to cache directory](https://rclone.org/commands/rclone_mount/#vfs-directory-cache) entries for. #optional, but recommended is 10s. | `5m` |
+|`RCLONE_CACHE_DIR`| [Directory used for caching](https://rclone.org/docs/#cache-dir-dir). | `/cache` |
+|`RCLONE_VFS_CACHE_MODE`| [Cache mode for VFS](https://rclone.org/commands/rclone_mount/#vfs-file-caching). | ` ` |
+|`RCLONE_VFS_CACHE_MAX_SIZE`| [Max size of the VFS cache](https://rclone.org/commands/rclone_mount/#vfs-file-caching). | ` ` |
+|`RCLONE_VFS_CACHE_MAX_AGE`| [Max age of the VFS cache](https://rclone.org/commands/rclone_mount/#vfs-file-caching). | ` ` |
+|`PLEX_USER`| The Plex username for your account. | ` ` || :heavy_check_mark:|
+|`PLEX_TOKEN`| The [Plex Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) associated with PLEX_USER. | ` ` || :heavy_check_mark:|
+|`PLEX_ADDRESS`| The URL of your Plex server. Example: http://192.168.0.100:32400 or http://plex:32400 - format must include http:// or https:// and have no trailing characters after the port number (32400) e.g / | ` ` || :heavy_check_mark:|
+|`SHOW_MENU`| Enable the plex_debrid menu to show upon startup, requiring user interaction before the program runs. Conversely if the plex_debrid menu is disabled, the program will automatically run upon successful startup. #optional - if used, value must be true or false. | `true` |
+|`PD_LOGFILE`| Log file for plex_debrid.  #optional - if used, value must be true or false. | `false` |
+|`AUTO_UPDATE`| Enable automatic updates of plex_debrid. #optional - uncommenting will enable auto update to the latest version of plex_debrid locally in the container. No values are required. | `false` |
+|`AUTO_UPDATE_INTERVAL`| Interval between automatic updates checks in hours. #optional - if used, value must be an integer. | `24` |
 
 ## TODO
 - Test the use of .env files to setup rclone and plex_debrid

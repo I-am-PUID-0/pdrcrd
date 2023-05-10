@@ -1,25 +1,9 @@
-from json import load
-from dotenv import load_dotenv
-from os import getenv
-from datetime import datetime
-import os, requests, zipfile, io, shutil, regex, subprocess, schedule, time
+from base import *
 
-load_dotenv()
-def dt():
-    tnow = datetime.now()
-    dt_string = tnow.strftime("%b %e, %Y %H:%M:%S")
-    return dt_string
-def setup_plex_debrid():
-    spd = subprocess.call(['sh', '/setup.sh'])
-    if spd == 0:
-        print("Startup successfully.")
-    else:
-        print("Startup failed with return code", spd), exit(1)
+
 def start_plex_debrid():    
     global pd 
     pd = subprocess.Popen(['python', '/plex_debrid/main.py', '--config-dir', '/config'], start_new_session=True)
-def popen_pid():
-    print (dt(),start_plex_debrid())
 def update_disabled():
     print (dt(),"Automatic update disabled")
     start_plex_debrid()
@@ -84,6 +68,4 @@ def auto_update():
         update_schedule()                  
     elif not (AUTOUPDATE is None):    
         print (dt(),"Automatic update interval set to "+str(auto_update_interval())+" hours")
-        update_schedule()       
-setup_plex_debrid()
-auto_update()
+        update_schedule()
