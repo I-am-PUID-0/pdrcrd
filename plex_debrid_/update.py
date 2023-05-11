@@ -54,13 +54,13 @@ def update_schedule():
             schedule.run_pending()
             time.sleep(1)     
 def auto_update_interval():
-    if getenv('AUTO_UPDATE_INTERVAL') is None:
+    if os.getenv('AUTO_UPDATE_INTERVAL') is None:
         AUTOUPDATEINT = 24
     else:
-        AUTOUPDATEINT = int(getenv('AUTO_UPDATE_INTERVAL'))
+        AUTOUPDATEINT = int(os.getenv('AUTO_UPDATE_INTERVAL'))
     return AUTOUPDATEINT
 def auto_update(): 
-    AUTOUPDATE = getenv('AUTO_UPDATE')
+    AUTOUPDATE = os.getenv('AUTO_UPDATE')
     if (AUTOUPDATE is None):  
         update_disabled()
     elif (AUTOUPDATE is not None and auto_update_interval() == 24): 
