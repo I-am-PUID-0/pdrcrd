@@ -26,11 +26,11 @@ services:
     stdin_open: true # docker run -i
     tty: true        # docker run -t    
     volumes:
-      - your/host/path/config:/config       # rclone.conf & settings.json will both be here on the host CAUTION: rclone.conf is overwritten upon start/restart of the container. Do NOT use an existing rclone.conf file if you have other rclone services.
-      - your/host/path/log:/log     # logs will be here on the host
-      - your/host/path/mnt:/data:shared     #rclone mount will be here on the host  
+      - your/host/path/config:/config
+      - your/host/path/log:/log
+      - your/host/path/mnt:/data:shared
     environment:
-      - TZ=America/New_York
+      - TZ=
       - RD_API_KEY=
       - RCLONE_MOUNT_NAME=
       - RCLONE_DIR_CACHE_TIME=10s
@@ -54,41 +54,6 @@ services:
 ```
 docker build -t yourimagename https://github.com/I-am-PUID-0/pdrcrd.git
 ```
-
-### Portainer
-
-Download the repo files
-
-<img src="https://user-images.githubusercontent.com/36779668/228725571-d0084e89-05c9-4bf5-bea5-6b7cd0e996b4.png" width="250" height="250">
-
-
-Select "+ Build a new image"
-
-<img src="https://user-images.githubusercontent.com/36779668/228723889-f49af0d0-12f0-4837-8c59-6aa64921723b.png" width="550" height="30">
-
-
-Specify your image name
-
-<img src="https://user-images.githubusercontent.com/36779668/228724192-feb82409-f5c0-46b3-a6dc-5d8c9b0f093c.png" width="550" height="250">
-
-
-Select "Web editor" and paste the contents of the Dockerfile inside the field
-
-<img src="https://user-images.githubusercontent.com/36779668/228724344-6c9de02b-c4bd-4573-9223-6b14d5e9f2ae.png" width="550" height="250">
-
-
-Select the identified files 
-
-<img src="https://user-images.githubusercontent.com/36779668/228724346-6a2e5641-ff31-4de2-98bc-f17b37bd60f2.png" width="550" height="100">
-
-Select "Build the image"
-
-<img src="https://user-images.githubusercontent.com/36779668/228724347-a6911a5f-40ee-4f02-982f-cc0d977d5b3b.png" width="150" height="100">
-
-Confirm the image is successfully built
-
-<img src="https://user-images.githubusercontent.com/36779668/228724348-20ee3562-167e-47fb-b503-5b7ce1642b5b.png" width="250" height="100">
-
 
 ## Install script for Ubuntu and/or WSL
 Whether starting with a clean install of Ubuntu (22.04 LTS tested), an established Docker setup on Ubuntu, or following the [Windows Setup Guide (Docker/WSL)](https://discord.com/channels/1090745199891861524/1091543927842148452 ) , this script will walk the user through a prompted installation of Docker and/or pdrcrd. For users utilizing WSL, a prompt is also provided post setup that allows the user to open the newly mounted rclone_RD directory inside the Windows explore of the host machine. 
@@ -120,31 +85,43 @@ plex_debrid will be restarted automatically after the update is complete. As suc
 
 The benefit of this automatic update feature is that you will always be running the latest version of plex_debrid. This will ensure that you are always taking advantage of the latest features and bug fixes. It also means that the container will not need to be rebuilt or restarted by pulling a new image when a new version of plex_debrid is released. This will save you time and bandwidth, but most importantly, it will prevent the rclone_RD mount from being reset and severing the connection to your Plex server. Thus, the Plex server will not need to be restarted due to applying updates for the inbuilt applications.
 
-### Environment Variables
+## Environment Variables
 
 To customize some properties of the container, the following environment
-variables can be passed via the `-e` parameter (one for each variable).  Value
+variables can be passed via the `-e` parameter (one for each variable) or via the docker-compose file within the ```environment:``` section.  Value
 of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 
 | Variable       | Description                                  | Default | Required for rclone_RD| Required for plex_debrid|
 |----------------|----------------------------------------------|---------|:-:|:-:|
-|`TZ`| [TimeZone](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones) used by the container. | `America/New_York` |
+|`TZ`| [TimeZone](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones) used by the container. | ` ` |
 |`RD_API_KEY`| [RealDebrid API key](https://real-debrid.com/apitoken). | ` ` | :heavy_check_mark:| :heavy_check_mark:|
-|`RCLONE_MOUNT_NAME`| Name for the rclone mount. | ` ` | :heavy_check_mark:|
+|`RCLONE_MOUNT_NAME`| A name for the rclone mount. | ` ` | :heavy_check_mark:|
 |`RCLONE_LOG_LEVEL`| [Log level](https://rclone.org/docs/#log-level-level) for rclone. | `NOTICE` |
-|`RCLONE_LOG_FILE`| [Log file](https://rclone.org/docs/#log-file-file) for rclone. | `/log/RCLONE_MOUNT_NAME.txt` |
-|`RCLONE_DIR_CACHE_TIME`| [Time to cache directory](https://rclone.org/commands/rclone_mount/#vfs-directory-cache) entries for. #optional, but recommended is 10s. | `5m` |
-|`RCLONE_CACHE_DIR`| [Directory used for caching](https://rclone.org/docs/#cache-dir-dir). | `/cache` |
+|`RCLONE_LOG_FILE`| [Log file](https://rclone.org/docs/#log-file-file) for rclone. | ` ` |
+|`RCLONE_DIR_CACHE_TIME`| [How long a directory should be considered up to date and not refreshed from the backend](https://rclone.org/commands/rclone_mount/#vfs-directory-cache). #optional, but recommended is 10s. | `5m` |
+|`RCLONE_CACHE_DIR`| [Directory used for caching](https://rclone.org/docs/#cache-dir-dir). | ` ` |
 |`RCLONE_VFS_CACHE_MODE`| [Cache mode for VFS](https://rclone.org/commands/rclone_mount/#vfs-file-caching). | ` ` |
 |`RCLONE_VFS_CACHE_MAX_SIZE`| [Max size of the VFS cache](https://rclone.org/commands/rclone_mount/#vfs-file-caching). | ` ` |
 |`RCLONE_VFS_CACHE_MAX_AGE`| [Max age of the VFS cache](https://rclone.org/commands/rclone_mount/#vfs-file-caching). | ` ` |
-|`PLEX_USER`| The Plex username for your account. | ` ` || :heavy_check_mark:|
+|`PLEX_USER`| The [Plex USERNAME](https://app.plex.tv/desktop/#!/settings/account) for your account. | ` ` || :heavy_check_mark:|
 |`PLEX_TOKEN`| The [Plex Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) associated with PLEX_USER. | ` ` || :heavy_check_mark:|
-|`PLEX_ADDRESS`| The URL of your Plex server. Example: http://192.168.0.100:32400 or http://plex:32400 - format must include http:// or https:// and have no trailing characters after the port number (32400) e.g / | ` ` || :heavy_check_mark:|
-|`SHOW_MENU`| Enable the plex_debrid menu to show upon startup, requiring user interaction before the program runs. Conversely if the plex_debrid menu is disabled, the program will automatically run upon successful startup. #optional - if used, value must be true or false. | `true` |
-|`PD_LOGFILE`| Log file for plex_debrid.  #optional - if used, value must be true or false. | `false` |
-|`AUTO_UPDATE`| Enable automatic updates of plex_debrid. #optional - uncommenting will enable auto update to the latest version of plex_debrid locally in the container. No values are required. | `false` |
-|`AUTO_UPDATE_INTERVAL`| Interval between automatic updates checks in hours. #optional - if used, value must be an integer. | `24` |
+|`PLEX_ADDRESS`| The URL of your Plex server. Example: http://192.168.0.100:32400 or http://plex:32400 - format must include ```http://``` or ```https://``` and have no trailing characters after the port number (32400). E.g., ```/``` | ` ` || :heavy_check_mark:|
+|`SHOW_MENU`| Enable the plex_debrid menu to show upon startup, requiring user interaction before the program runs. Conversely if the plex_debrid menu is disabled, the program will automatically run upon successful startup. If used, the value must be ```true``` or ```false```. | `true` |
+|`PD_LOGFILE`| Log file for plex_debrid. The log file will appear in the ```/config``` as ```plex_debrid.log```. If used, the value must be ```true``` or ```false```. | `false` |
+|`AUTO_UPDATE`| Enable automatic updates of plex_debrid. Add this variable will enable automatic updates to the latest version of plex_debrid locally within the container. No values are required. | `false` |
+|`AUTO_UPDATE_INTERVAL`| Interval between automatic update checks in hours. #optional - if used, value must be a [Whole Number](https://www.oxfordlearnersdictionaries.com/us/definition/english/whole-number). | `24` |
+
+## Data Volumes
+
+The following table describes data volumes used by the container.  The mappings
+are set via the `-v` parameter or via the docker-compose file within the ```volumes:``` section.  Each mapping is specified with the following
+format: `<HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]`.
+
+| Container path  | Permissions | Description |
+|-----------------|-------------|-------------|
+|`/config`| rw | This is where the application stores the rclone.conf, plex_debrid settings.json, and any files needing persistency. CAUTION: rclone.conf is overwritten upon start/restart of the container. Do NOT use an existing rclone.conf file if you have other rclone services. |
+|`/log`| rw | This is where the application stores its log files. |
+|`/mnt`| rw | This is where rclone_RD will be mounted. Not required when only utilizing plex_debrid.   |
 
 ## TODO
 - Test the use of .env files to setup rclone and plex_debrid

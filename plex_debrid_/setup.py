@@ -84,7 +84,7 @@ def pd_setup():
         print(dt(), "plex_debrid configuration complete")
         print(
             dt(),
-            "To ensure that Plex can access the rclone_RD mount, please restart Plex now",
+            "To ensure that Plex can access the rclone_RD mount, and that plex_debrid can access Plex, please restart Plex now",
         )
         print(dt(), "The script will wait till the restart is complete")
 

@@ -42,15 +42,15 @@ def setup():
             f.write("user_allow_other\n")
         try:
             if not os.environ.get("PLEX_USER"):
-                # Print the current date and time and start rclone_RD as a daemon
-                print(dt(),"Starting rclone_RD daemon")
-                # Mount the rclone mount
-                subprocess.run(["/rclone-linux", "mount", f"{os.environ['RCLONE_MOUNT_NAME']}:", f"/data/{os.environ['RCLONE_MOUNT_NAME']}", "--config", "/config/rclone.config", "--allow-other", "--daemon"])
-            else:
                 # Print the current date and time and start rclone_RD
                 print(dt(),"Starting rclone_RD")
                 # Mount the rclone mount
                 subprocess.run(["/rclone-linux", "mount", f"{os.environ['RCLONE_MOUNT_NAME']}:", f"/data/{os.environ['RCLONE_MOUNT_NAME']}", "--config", "/config/rclone.config", "--allow-other"])
+            else:
+                # Print the current date and time and start rclone_RD as a daemon
+                print(dt(),"Starting rclone_RD daemon")
+                # Mount the rclone mount
+                subprocess.run(["/rclone-linux", "mount", f"{os.environ['RCLONE_MOUNT_NAME']}:", f"/data/{os.environ['RCLONE_MOUNT_NAME']}", "--config", "/config/rclone.config", "--allow-other","--daemon"])
         except :
             pass
     # Catch any exceptions
