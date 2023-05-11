@@ -12,7 +12,7 @@ A combined docker image for the unified deployment of **[itsToggle's](https://gi
  - Fuse.conf ```user_allow_other``` applied within the container vs. the host
  - Plex server values passed to plex_debrid settings.json via docker enviorment variables
  - Automatic update of plex_debrid to the latest version
- - Optional independent utilization of either rclone_RD or plex_debrid
+ - Optional independent or combined utilization of rclone_RD and plex_debrid
 
 ## Docker Hub
 A prebuilt image is hosted on [docker hub](https://hub.docker.com/r/iampuid0/pdrcrd) 
