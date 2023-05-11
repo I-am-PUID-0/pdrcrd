@@ -17,18 +17,22 @@ def main():
             raise Exception(
                 "Please set the realdebrid API Key: RD_API_KEY environment variable is missing from the docker-compose file"
             )
-        # Call the pd_setup function
-        setup.pd_setup()
-        # Check if the AUTO_UPDATE environment variable is set
-        if not (os.getenv("AUTO_UPDATE") is None):
-            # Call the auto_update function
-            update.auto_update()
-        else:
-            # Call the update_disabled function
-            update.update_disabled()
     except Exception as e:
         # Print the exception
         print(dt(), e)
+    try:
+        if not (os.getenv("PLEX_USER") is None):
+            # Call the pd_setup function
+            setup.pd_setup()
+            # Check if the AUTO_UPDATE environment variable is set
+            if not (os.getenv("AUTO_UPDATE") is None):
+                # Call the auto_update function
+                update.auto_update()
+            else:
+                # Call the update_disabled function
+                update.update_disabled()
+    except:
+        pass
 if __name__ == "__main__":
     # Call the main function
     main()

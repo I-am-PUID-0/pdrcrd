@@ -113,7 +113,7 @@ def pd_setup():
             print(".", end="", flush=True)
             time.sleep(1)
 
-        print(dt(), "\nStarting plex_debrid")
+        print("\n "f"{dt()}"" Starting plex_debrid")
     except:
         print(dt(), "An error occurred. Exiting...")
         exit(1)

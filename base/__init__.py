@@ -23,5 +23,3 @@ PLEXADD = os.getenv('PLEX_ADDRESS')
 SHOWMENU = os.getenv('SHOW_MENU')
 LOGFILE = os.getenv('PD_LOGFILE')
 AUTOUPDATE = os.getenv('AUTO_UPDATE')
-
-print ("__base__ imported")
