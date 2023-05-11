@@ -24,7 +24,7 @@ def setup():
         print(dt(),"Configuring rclone_RD")
     
         # Unmount the rclone mount
-        subprocess.run(["umount", f"/data/{os.environ['RCLONE_MOUNT_NAME']}"], check=False)
+        subprocess.run(["umount", f"/data/{os.environ['RCLONE_MOUNT_NAME']}"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         # Create the directory for the rclone mount
         os.makedirs(f"/data/{os.environ['RCLONE_MOUNT_NAME']}", exist_ok=True)
 

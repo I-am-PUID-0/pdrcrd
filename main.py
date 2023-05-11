@@ -5,6 +5,17 @@ from rclone_rd import rclone
 
 
 def main():
+    # Healthchecks
+    def healthcheck():
+        while True:
+            try:
+                subprocess.run(['python', 'healthcheck.py'])
+            except Exception as e:
+                print('Error running healthcheck.py:', e)
+            time.sleep(60)
+    thread = threading.Thread(target=healthcheck)
+    thread.daemon = True
+    thread.start()
     try:
         # Check if the RD_API_KEY environment variable is set
         if not (os.getenv("RD_API_KEY") is None):
