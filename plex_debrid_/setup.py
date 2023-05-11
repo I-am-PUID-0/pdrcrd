@@ -93,7 +93,7 @@ def pd_setup():
             print(".", end="", flush=True)
             time.sleep(1)
 
-        print(dt(), "\nWaiting for Plex to restart...")
+        print(dt(), "\n"f"{dt()}""Waiting for Plex to restart...")
         sp = "/-\|"
         # Check if Plex is running
         while (
@@ -113,7 +113,7 @@ def pd_setup():
             print(".", end="", flush=True)
             time.sleep(1)
 
-        print("\n "f"{dt()}"" Starting plex_debrid")
+        print("\n"f"{dt()}"" Starting plex_debrid")
     except:
         print(dt(), "An error occurred. Exiting...")
         exit(1)
