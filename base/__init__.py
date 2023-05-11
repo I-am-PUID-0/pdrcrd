@@ -10,6 +10,9 @@ import shutil
 import regex
 import subprocess
 import schedule
+import psutil
+import sys
+
 
 def dt():
     tnow = datetime.now()

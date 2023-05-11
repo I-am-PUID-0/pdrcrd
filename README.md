@@ -6,12 +6,13 @@ A combined docker image for the unified deployment of **[itsToggle's](https://gi
 
 ## Features
  - Bind-mounts rclone_RD to the host
- - RealDebrid API Key passed to rclone_rd and plex_debrid from docker-compose
+ - RealDebrid API Key passed to rclone_rd and plex_debrid via docker enviorment variable
  - rclone_RD config automatically generated
- - rclone_RD flags passed from docker-compose
- - Fuse.conf allow_other applied within the container vs. the host
- - Plex server values passed to plex_debrid settings.json from docker-compose
+ - rclone_RD flags passed via docker enviorment variable
+ - Fuse.conf ```user_allow_other``` applied within the container vs. the host
+ - Plex server values passed to plex_debrid settings.json via docker enviorment variables
  - Automatic update of plex_debrid to the latest version
+ - Optional independent utilization of either rclone_RD or plex_debrid
 
 ## Docker Hub
 A prebuilt image is hosted on [docker hub](https://hub.docker.com/r/iampuid0/pdrcrd) 
@@ -56,34 +57,12 @@ docker build -t yourimagename https://github.com/I-am-PUID-0/pdrcrd.git
 ```
 
 ## Install script for Ubuntu and/or WSL
-Whether starting with a clean install of Ubuntu (22.04 LTS tested), an established Docker setup on Ubuntu, or following the [Windows Setup Guide (Docker/WSL)](https://discord.com/channels/1090745199891861524/1091543927842148452 ) , this script will walk the user through a prompted installation of Docker and/or pdrcrd. For users utilizing WSL, a prompt is also provided post setup that allows the user to open the newly mounted rclone_RD directory inside the Windows explore of the host machine. 
-
-Paste the below into your Ubuntu CLI. 
-```sudo curl -o pdrcrd_ubuntu_install.sh https://raw.githubusercontent.com/I-am-PUID-0/pdrcrd/master/Ubuntu/pdrcrd_ubuntu_install.sh  && sudo chmod +x pdrcrd_ubuntu_install.sh```
-
-
-
-Then paste the following: 
-```./pdrcrd_ubuntu_install.sh```
-
-
-
-Follow the prompts and enjoy 🙂
-
-
-NOTE: Testing has not been performed on any distros other than Ubuntu 22.04 LTS and WSL 2 on Windows 11. If you experience any issues, please post them on GitHub. https://github.com/I-am-PUID-0/pdrcrd/issues 
+Shell script to install docker and/or pdrcrd. See the [pdrcrd Wiki](https://github.com/I-am-PUID-0/pdrcrd/wiki/Setup-Guides#install-script-for-ubuntu-andor-wsl) for details.
 
 ## Automatic Updates
+If you would like to enable automatic updates for plex_debrid, utilize the ```AUTO_UPDATE``` environment variable. 
+Addtional details can be found in the [pdrcrd Wiki](https://github.com/I-am-PUID-0/pdrcrd/wiki/Settings#automatic-updates)
 
-If you would like to enable automatic updates, you can do so by uncommenting the AUTO_UPDATE variable in your docker-compose.yml file. This will automatically update plex_debrid to the latest version on startup and at the interval specified by AUTO_UPDATE_INTERVAL. No values are required for AUTO_UPDATE.
-
-The default value for AUTO_UPDATE_INTERVAL is 24 hours. If you would like to change this, you can do so by uncommenting the AUTO_UPDATE_INTERVAL variable in your docker-compose.yml file and setting the value to the number of hours you would like to wait between updates.
-
-The automatic update is performed by comparing the installed version with the version available on GitHub. If a delta exists, it continues by pulling the latest version of plex_debrid from GitHub and replacing the existing plex_debrid container files. This will not affect any of your settings or configuration.
-
-plex_debrid will be restarted automatically after the update is complete. As such, if you have any active scrapes running in plex_debrid, they will be interrupted and will be restarted once plex_debrid reloads. However, due to the lack of a caching feature within plex_debrid for items that have not exceeded their retry limit, the retry count will revert to 0 for any items that were in the process of being scraped when the update occurred. This means that any items that were in the process of being scraped when the update occurred will be re-scraped from the beginning. This is a known issue and will be addressed in a future update.
-
-The benefit of this automatic update feature is that you will always be running the latest version of plex_debrid. This will ensure that you are always taking advantage of the latest features and bug fixes. It also means that the container will not need to be rebuilt or restarted by pulling a new image when a new version of plex_debrid is released. This will save you time and bandwidth, but most importantly, it will prevent the rclone_RD mount from being reset and severing the connection to your Plex server. Thus, the Plex server will not need to be restarted due to applying updates for the inbuilt applications.
 
 ## Environment Variables
 
@@ -108,7 +87,7 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`PLEX_ADDRESS`| The URL of your Plex server. Example: http://192.168.0.100:32400 or http://plex:32400 - format must include ```http://``` or ```https://``` and have no trailing characters after the port number (32400). E.g., ```/``` | ` ` || :heavy_check_mark:|
 |`SHOW_MENU`| Enable the plex_debrid menu to show upon startup, requiring user interaction before the program runs. Conversely if the plex_debrid menu is disabled, the program will automatically run upon successful startup. If used, the value must be ```true``` or ```false```. | `true` |
 |`PD_LOGFILE`| Log file for plex_debrid. The log file will appear in the ```/config``` as ```plex_debrid.log```. If used, the value must be ```true``` or ```false```. | `false` |
-|`AUTO_UPDATE`| Enable automatic updates of plex_debrid. Add this variable will enable automatic updates to the latest version of plex_debrid locally within the container. No values are required. | `false` |
+|`AUTO_UPDATE`| Enable automatic updates of plex_debrid. Adding this variable will enable automatic updates to the latest version of plex_debrid locally within the container. No values are required. | `false` |
 |`AUTO_UPDATE_INTERVAL`| Interval between automatic update checks in hours. #optional - if used, value must be a [Whole Number](https://www.oxfordlearnersdictionaries.com/us/definition/english/whole-number). | `24` |
 
 ## Data Volumes

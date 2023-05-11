@@ -93,7 +93,7 @@ def pd_setup():
             print(".", end="", flush=True)
             time.sleep(1)
 
-        print(dt(), "\n"f"{dt()}""Waiting for Plex to restart...")
+        print("\n"f"{dt()}"" Waiting for Plex to restart...")
         sp = "/-\|"
         # Check if Plex is running
         while (
@@ -107,7 +107,7 @@ def pd_setup():
             print(f"\r{sp}", end="", flush=True)
             time.sleep(1)
 
-        print(dt(), "\nWaiting 30s for Plex to finish starting")
+        print("\n"f"{dt()}"" Waiting 30s for Plex to finish starting")
         # Wait for 30 seconds
         for i in range(30):
             print(".", end="", flush=True)
