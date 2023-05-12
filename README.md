@@ -109,6 +109,11 @@ format: `<HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]`.
 - Evaluate adding Plex Media Server to the container
 - Add support for other Media Servers - Emby, Jellyfin, etc. -- currently only supports Plex
 
+## Deployment
+
+pdrcrd allows for the simultaneous or individual deployment of plex_debrid and/or rclone_RD
+
+For addtional details on deployment, see the [pdrcrd Wiki](https://github.com/I-am-PUID-0/pdrcrd/wiki/Settings#deployment)
 ## Community
 
 ### pdrcrd
