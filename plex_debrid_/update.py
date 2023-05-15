@@ -15,7 +15,7 @@ def update_available():
     with open('/config/settings.json', 'r') as f:
         json_data = load(f)
         version = json_data['version'][0]
-        print (dt(),"Currently installed [v"+version+"]")
+        print ("\n"f"{dt()}"" Currently installed [v"+version+"]")
     try:
         response = requests.get('https://raw.githubusercontent.com/itsToggle/plex_debrid/main/ui/ui_settings.py',timeout=0.25)
         response = response.content.decode('utf8')

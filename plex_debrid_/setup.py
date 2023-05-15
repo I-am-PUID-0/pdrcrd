@@ -82,36 +82,36 @@ def pd_setup():
             print(dt(), "Using default: Log to file=false")
 
         print(dt(), "plex_debrid configuration complete")
-        print(
-            dt(),
-            "To ensure that Plex can access the rclone_RD mount, and that plex_debrid can access Plex, please restart Plex now",
-        )
-        print(dt(), "The script will wait till the restart is complete")
+#        print(
+#            dt(),
+#            "To ensure that Plex can access the rclone_RD mount, and that plex_debrid can access Plex, please restart Plex now",
+#        )
+#        print(dt(), "The script will wait till the restart is complete")
 
         # Wait for 30 seconds
-        for i in range(30):
-            print(".", end="", flush=True)
-            time.sleep(1)
+#        for i in range(30):
+#            print(".", end="", flush=True)
+#            time.sleep(1)
 
-        print("\n"f"{dt()}"" Waiting for Plex to restart...")
-        sp = "/-\|"
+#        print("\n"f"{dt()}"" Waiting for Plex to restart...")
+#        sp = "/-\|"
         # Check if Plex is running
-        while (
-            subprocess.run(
-                ["wget", "--wait=1", "--tries=0", "--spider", PLEXADD + "/identity"],
-                capture_output=True,
-            ).returncode
-            != 0
-        ):
-            sp = sp[1:] + sp[0]
-            print(f"\r{sp}", end="", flush=True)
-            time.sleep(1)
+#        while (
+#            subprocess.run(
+#                ["wget", "--wait=1", "--tries=0", "--spider", PLEXADD + "/identity"],
+#                capture_output=True,
+#            ).returncode
+#            != 0
+#        ):
+#            sp = sp[1:] + sp[0]0
+#            print(f"\r{sp}", end="", flush=True)
+#            time.sleep(1)
 
-        print("\n"f"{dt()}"" Waiting 30s for Plex to finish starting")
+#        print("\n"f"{dt()}"" Waiting 30s for Plex to finish starting")
         # Wait for 30 seconds
-        for i in range(30):
-            print(".", end="", flush=True)
-            time.sleep(1)
+#        for i in range(30):
+#            print(".", end="", flush=True)
+#            time.sleep(1)
 
         print("\n"f"{dt()}"" Starting plex_debrid")
     except:
