@@ -1,25 +1,9 @@
-from json import load
-from dotenv import load_dotenv
-from os import getenv
-from datetime import datetime
-import os, requests, zipfile, io, shutil, regex, subprocess, schedule, time
+from base import *
 
-load_dotenv()
-def dt():
-    tnow = datetime.now()
-    dt_string = tnow.strftime("%b %e, %Y %H:%M:%S")
-    return dt_string
-def setup_plex_debrid():
-    spd = subprocess.call(['sh', '/setup.sh'])
-    if spd == 0:
-        print("Startup successfully.")
-    else:
-        print("Startup failed with return code", spd), exit(1)
+
 def start_plex_debrid():    
     global pd 
     pd = subprocess.Popen(['python', '/plex_debrid/main.py', '--config-dir', '/config'], start_new_session=True)
-def popen_pid():
-    print (dt(),start_plex_debrid())
 def update_disabled():
     print (dt(),"Automatic update disabled")
     start_plex_debrid()
@@ -31,7 +15,7 @@ def update_available():
     with open('/config/settings.json', 'r') as f:
         json_data = load(f)
         version = json_data['version'][0]
-        print (dt(),"Currently installed [v"+version+"]")
+        print ("\n"f"{dt()}"" Currently installed [v"+version+"]")
     try:
         response = requests.get('https://raw.githubusercontent.com/itsToggle/plex_debrid/main/ui/ui_settings.py',timeout=0.25)
         response = response.content.decode('utf8')
@@ -70,13 +54,13 @@ def update_schedule():
             schedule.run_pending()
             time.sleep(1)     
 def auto_update_interval():
-    if getenv('AUTO_UPDATE_INTERVAL') is None:
+    if os.getenv('AUTO_UPDATE_INTERVAL') is None:
         AUTOUPDATEINT = 24
     else:
-        AUTOUPDATEINT = int(getenv('AUTO_UPDATE_INTERVAL'))
+        AUTOUPDATEINT = int(os.getenv('AUTO_UPDATE_INTERVAL'))
     return AUTOUPDATEINT
 def auto_update(): 
-    AUTOUPDATE = getenv('AUTO_UPDATE')
+    AUTOUPDATE = os.getenv('AUTO_UPDATE')
     if (AUTOUPDATE is None):  
         update_disabled()
     elif (AUTOUPDATE is not None and auto_update_interval() == 24): 
@@ -84,6 +68,4 @@ def auto_update():
         update_schedule()                  
     elif not (AUTOUPDATE is None):    
         print (dt(),"Automatic update interval set to "+str(auto_update_interval())+" hours")
-        update_schedule()       
-setup_plex_debrid()
-auto_update()
+        update_schedule()

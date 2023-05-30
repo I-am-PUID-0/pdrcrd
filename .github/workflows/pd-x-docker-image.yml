@@ -1,11 +1,11 @@
-name: RD AS Docker Hub Build
+name: PD-X Docker Hub Build
 
 on:
   schedule:
   - cron: "0 0 * * *"
   workflow_dispatch:
   push:
-    branches: [ "rclone_RD_artificial-sorting" ]
+    branches: [ "plex_debrid_experimental" ]
     paths-ignore:
       - '**/README.md'
       - 'Ubuntu/**'
@@ -41,4 +41,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/pdrcrd:rclone_RD_artificial-sorting
+          tags: ${{ secrets.DOCKER_USERNAME }}/pdrcrd:plex_debrid_experimental
