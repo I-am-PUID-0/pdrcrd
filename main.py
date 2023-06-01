@@ -5,6 +5,28 @@ from rclone_rd import rclone
 
 
 def main():
+    # ASCII art
+    ascii_art = '''
+                                                                           
+                      88                                               88  
+                      88                                               88  
+                      88                                               88  
+8b,dPPYba,    ,adPPYb,88  8b,dPPYba,   ,adPPYba,  8b,dPPYba,   ,adPPYb,88  
+88P'    "8a  a8"    `Y88  88P'   "Y8  a8"     ""  88P'   "Y8  a8"    `Y88  
+88       d8  8b       88  88          8b          88          8b       88  
+88b,   ,a8"  "8a,   ,d88  88          "8a,   ,aa  88          "8a,   ,d88  
+88`YbbdP"'    `"8bbdP"Y8  88           `"Ybbd8"'  88           `"8bbdP"Y8  
+88                                                                         
+88                        Version: {version}                                    
+'''
+
+    # Version number
+    version = '1.0.0'
+
+    # Print ASCII art with version number
+    print(ascii_art.format(version=version))
+    print("\n" * 2)
+
     # Healthchecks
     def healthcheck():
         while True:
