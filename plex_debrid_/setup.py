@@ -1,14 +1,18 @@
 from base import *
 
+# Get logger object
+logger = get_logger()
 
 def pd_setup():
-    print(dt(), "Configuring plex_debrid")
+    logger.info("Configuring plex_debrid")
     settings_file = "/config/settings.json"
+    
     # Check if settings file exists, if not, copy default settings
     if not os.path.exists(settings_file):
         subprocess.run(
             ["cp", "/plex_debrid_/settings-default.json", settings_file], check=True
         )
+        
     try:
         # Check if PLEXUSER and PLEXTOKEN environment variables are set
         if not (PLEXUSER is None or PLEXTOKEN is None):
@@ -22,13 +26,13 @@ def pd_setup():
         else:
             # If not set, check which environment variable is missing and exit
             if PLEXUSER is None and PLEXTOKEN is None:
-                print(dt(), "PLEX_USER & PLEX_TOKEN environment variables are missing.")
+                logger.error("PLEX_USER & PLEX_TOKEN environment variables are missing.")
                 exit(1)
             elif PLEXTOKEN is None:
-                print(dt(), "PLEX_TOKEN environment variable is missing.")
+                logger.error("PLEX_TOKEN environment variable is missing.")
                 exit(1)
             else:
-                print(dt(), "PLEX_USER environment variable is missing.")
+                logger.error("PLEX_USER environment variable is missing.")
                 exit(1)
 
         # Check if RDAPIKEY environment variable is set
@@ -41,7 +45,7 @@ def pd_setup():
                 dump(json_data, f, indent=4)
                 f.truncate()
         else:
-            print(dt(), "RD_API_KEY environment variable is missing.")
+            logger.error("RD_API_KEY environment variable is missing.")
             exit(1)
 
         # Check if PLEXADD environment variable is set
@@ -54,7 +58,7 @@ def pd_setup():
                 dump(json_data, f, indent=4)
                 f.truncate()
         else:
-            print(dt(), "PLEX_ADDRESS environment variable is missing.")
+            logger.error("PLEX_ADDRESS environment variable is missing.")
             exit(1)
 
         # Check if SHOWMENU environment variable is set
@@ -67,7 +71,7 @@ def pd_setup():
                 dump(json_data, f, indent=4)
                 f.truncate()
         else:
-            print(dt(), "Using default: Show Menu on Startup=true")
+            logger.info("Using default: Show Menu on Startup=true")
 
         # Check if LOGFILE environment variable is set
         if not (LOGFILE is None):
@@ -79,9 +83,9 @@ def pd_setup():
                 dump(json_data, f, indent=4)
                 f.truncate()
         else:
-            print(dt(), "Using default: Log to file=false")
+            logger.info("Using default: Log to file=false")
 
-        print(dt(), "plex_debrid configuration complete")
+        logger.info("plex_debrid configuration complete")
 #        print(
 #            dt(),
 #            "To ensure that Plex can access the rclone_RD mount, and that plex_debrid can access Plex, please restart Plex now",
@@ -113,7 +117,8 @@ def pd_setup():
 #            print(".", end="", flush=True)
 #            time.sleep(1)
 
-        print("\n"f"{dt()}"" Starting plex_debrid")
-    except:
-        print(dt(), "An error occurred. Exiting...")
+        logger.info("Starting plex_debrid")
+    except Exception as e:
+        logger.error("An error occurred. Exiting...")
+        logger.error(str(e))
         exit(1)

@@ -5,7 +5,10 @@ from rclone_rd import rclone
 
 
 def main():
-    # ASCII art
+    # Get logger object
+    logger = get_logger()
+    
+    # ASCII art and version number
     ascii_art = '''
                                                                            
                       88                                               88  
@@ -21,51 +24,57 @@ def main():
 '''
 
     # Version number
-    version = '1.0.0'
+    version = '1.1.0'
+    # Log ASCII art with version number
+    logger.info(ascii_art.format(version=version))
+    logger.info("\n" * 2)
 
-    # Print ASCII art with version number
-    print(ascii_art.format(version=version))
-    print("\n" * 2)
-
-    # Healthchecks
+    # Define healthcheck
     def healthcheck():
         while True:
             try:
-                subprocess.run(['python', 'healthcheck.py'])
+                # Run healthcheck.py and capture the output
+                result = subprocess.run(['python', 'healthcheck.py'], capture_output=True, text=True) 
+                # Log the captured output
+                logger.info(result.stdout)
+                # Log any error messages
+                if result.stderr:
+                    logger.error(result.stderr)
             except Exception as e:
-                print('Error running healthcheck.py:', e)
+                logger.error('Error running healthcheck.py: %s', e)
             time.sleep(60)
     thread = threading.Thread(target=healthcheck)
     thread.daemon = True
     thread.start()
+
     try:
         # Check if the RD_API_KEY environment variable is set
-        if not (os.getenv("RD_API_KEY") is None):
-            # Check if the RCLONE_MOUNT_NAME environment variable is set
-            if not (os.getenv("RCLONE_MOUNT_NAME") is None):
-                # Call the rclone setup function
-                rclone.setup()
-        else:
-            # Raise an exception if the RD_API_KEY environment variable is not set
-            raise Exception(
-                "Please set the realdebrid API Key: RD_API_KEY environment variable is missing from the docker-compose file"
-            )
+        if not RDAPIKEY:
+            # If not, raise an exception
+            raise Exception("Please set the realdebrid API Key: RD_API_KEY environment variable is missing from the docker-compose file")
+
+        # Call the rclone setup function
+        rclone.setup()
     except Exception as e:
-        # Print the exception
-        print(dt(), e)
+        # Log the exception
+        logger.error('%s: %s', dt(), e)
+
     try:
-        if not (os.getenv("PLEX_USER") is None):
+        if PLEXUSER:
             # Call the pd_setup function
             setup.pd_setup()
+
             # Check if the AUTO_UPDATE environment variable is set
-            if not (os.getenv("AUTO_UPDATE") is None):
+            if AUTOUPDATE:
                 # Call the auto_update function
                 update.auto_update()
             else:
                 # Call the update_disabled function
                 update.update_disabled()
-    except:
-        pass
+    except Exception as e:
+        # Log the exception
+        logger.error('%s: %s', dt(), e)
+
 if __name__ == "__main__":
     # Call the main function
     main()

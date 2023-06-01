@@ -1,27 +1,31 @@
 from base import *
 
 def setup():
-    # Print the current date and time and check the rclone_RD flags
-    print(dt(),"Checking rclone_RD flags")
+    # Get logger object
+    logger = get_logger()
+
+    # Log the current date and time and check the rclone_RD flags
+    logger.info("Checking rclone_RD flags")
+
     try:
         # Check if the environment variable RCLONE_MOUNT_NAME is set
         if not os.environ.get("RCLONE_MOUNT_NAME"):
             # If not, raise an exception
             raise Exception("Please set a name for the rclone mount")
 
-        # Print the current date and time and configure the rclone mount name
-        print(dt(),f"Configuring the rclone mount name to {os.environ['RCLONE_MOUNT_NAME']}")
+        # Log the current date and time and configure the rclone mount name
+        logger.info(f"Configuring the rclone mount name to {os.environ['RCLONE_MOUNT_NAME']}")
 
         # Check if the environment variable RD_API_KEY is set
         if not os.environ.get("RD_API_KEY"):
             # If not, raise an exception
             raise Exception("Please set the API Key for the rclone mount")
 
-        # Print the current date and time and configure the API key
-        print(dt(),"Configuring the API key")
-    
-        # Print the current date and time and configure rclone_RD
-        print(dt(),"Configuring rclone_RD")
+        # Log the current date and time and configure the API key
+        logger.info("Configuring the API key")
+
+        # Log the current date and time and configure rclone_RD
+        logger.info("Configuring rclone_RD")
     
         # Unmount the rclone mount
         subprocess.run(["umount", f"/data/{os.environ['RCLONE_MOUNT_NAME']}"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -55,7 +59,7 @@ def setup():
             pass
     # Catch any exceptions
     except Exception as e:
-        # Print the current date and time and the exception
-        print(dt(),e)
+        # Log the exception with the current date and time
+        logger.error('%s: %s', dt(), e)
         # Exit with an error code
         exit(1)
