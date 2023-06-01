@@ -47,25 +47,41 @@ def update_available():
     except:
         print (dt(),"Automatic update failed")        
 def update_schedule():
-        update_enabled()
-        update_available()
-        schedule.every(auto_update_interval()).hours.do(update_available)  
-        while True:
-            schedule.run_pending()
-            time.sleep(1)     
+    update_enabled()
+    update_available()
+    interval = auto_update_interval()
+    interval_minutes = int(interval * 60)
+    schedule.every(interval_minutes).minutes.do(update_available)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
 def auto_update_interval():
     if os.getenv('AUTO_UPDATE_INTERVAL') is None:
-        AUTOUPDATEINT = 24
+        interval = 24
     else:
-        AUTOUPDATEINT = int(os.getenv('AUTO_UPDATE_INTERVAL'))
-    return AUTOUPDATEINT
-def auto_update(): 
+        interval = float(os.getenv('AUTO_UPDATE_INTERVAL'))
+    return interval
+
+def auto_update():
     AUTOUPDATE = os.getenv('AUTO_UPDATE')
-    if (AUTOUPDATE is None):  
+    if AUTOUPDATE is None:
         update_disabled()
-    elif (AUTOUPDATE is not None and auto_update_interval() == 24): 
-        print (dt(),"Automatic update interval missing\n" + dt(),"Defaulting to " +str(auto_update_interval())+ " hours")
-        update_schedule()                  
-    elif not (AUTOUPDATE is None):    
-        print (dt(),"Automatic update interval set to "+str(auto_update_interval())+" hours")
+    elif AUTOUPDATE is not None and auto_update_interval() == 24:
+        print(dt(), "Automatic update interval missing\n" + dt(), "Defaulting to " + format_time(auto_update_interval()))
         update_schedule()
+    elif not (AUTOUPDATE is None):
+        print(dt(), "Automatic update interval set to " + format_time(auto_update_interval()))
+        update_schedule()
+
+def format_time(interval):
+    interval_hours = int(interval)
+    interval_minutes = int((interval - interval_hours) * 60)
+    if interval_hours == 1 and interval_minutes == 0:
+        return "1 hour"
+    elif interval_hours == 1 and interval_minutes != 0:
+        return f"1 hour {interval_minutes} minutes"
+    elif interval_hours != 1 and interval_minutes == 0:
+        return f"{interval_hours} hours"
+    else:
+        return f"{interval_hours} hours {interval_minutes} minutes"
