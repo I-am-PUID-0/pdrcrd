@@ -24,10 +24,19 @@ def main():
 '''
 
     # Version number
-    version = '1.1.0'
-    # Log ASCII art with version number
-    logger.info(ascii_art.format(version=version))
-    logger.info("\n" * 2)
+    version = '1.1.1'
+
+    # Create a custom formatter for the ASCII art log message
+    class ASCIIArtFormatter(logging.Formatter):
+        def format(self, record):
+            return self._fmt % record.getMessage()
+    # Create a separate handler for the ASCII art log message
+    ascii_art_handler = logging.StreamHandler()
+    ascii_art_handler.setFormatter(ASCIIArtFormatter('%(message)s'))
+    logger.addHandler(ascii_art_handler)
+    # Log the ASCII art and version number & remove the handler
+    logger.info(ascii_art.format(version=version) + "\n" * 2)
+    logger.removeHandler(ascii_art_handler)
 
     # Define healthcheck
     def healthcheck():
@@ -35,8 +44,6 @@ def main():
             try:
                 # Run healthcheck.py and capture the output
                 result = subprocess.run(['python', 'healthcheck.py'], capture_output=True, text=True) 
-                # Log the captured output
-                logger.info(result.stdout)
                 # Log any error messages
                 if result.stderr:
                     logger.error(result.stderr)
