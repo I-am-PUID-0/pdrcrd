@@ -24,15 +24,15 @@ def main():
 '''
 
     # Version number
-    version = '1.1.1'
+    version = '1.1.2'
 
     # Create a custom formatter for the ASCII art log message
     class ASCIIArtFormatter(logging.Formatter):
         def format(self, record):
-            return self._fmt % record.getMessage()
+            return record.getMessage()
     # Create a separate handler for the ASCII art log message
     ascii_art_handler = logging.StreamHandler()
-    ascii_art_handler.setFormatter(ASCIIArtFormatter('%(message)s'))
+    ascii_art_handler.setFormatter(ASCIIArtFormatter())
     logger.addHandler(ascii_art_handler)
     # Log the ASCII art and version number & remove the handler
     logger.info(ascii_art.format(version=version) + "\n" * 2)
