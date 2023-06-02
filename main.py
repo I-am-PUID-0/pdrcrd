@@ -24,7 +24,7 @@ def main():
 '''
 
     # Version number
-    version = '1.1.2'
+    version = '1.1.3'
 
     # Create a custom formatter for the ASCII art log message
     class ASCIIArtFormatter(logging.Formatter):
@@ -35,7 +35,7 @@ def main():
     ascii_art_handler.setFormatter(ASCIIArtFormatter())
     logger.addHandler(ascii_art_handler)
     # Log the ASCII art and version number & remove the handler
-    logger.info(ascii_art.format(version=version) + "\n" * 2)
+    logger.info(ascii_art.format(version=version)  + "\n" + "\n")
     logger.removeHandler(ascii_art_handler)
 
     # Define healthcheck
