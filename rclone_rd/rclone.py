@@ -1,5 +1,6 @@
 from base import *
 
+
 def setup():
     # Get logger object
     logger = get_logger()
@@ -60,6 +61,6 @@ def setup():
     # Catch any exceptions
     except Exception as e:
         # Log the exception with the current date and time
-        logger.error('%s: %s', dt(), e)
+        logger.error(e)
         # Exit with an error code
         exit(1)

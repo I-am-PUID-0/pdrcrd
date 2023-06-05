@@ -1,5 +1,4 @@
 from base import *
-
 # Get logger object
 logger = get_logger()
 

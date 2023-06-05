@@ -7,7 +7,7 @@ from rclone_rd import rclone
 def main():
     # Get logger object
     logger = get_logger()
-    
+
     # ASCII art and version number
     ascii_art = '''
                                                                            
@@ -24,19 +24,10 @@ def main():
 '''
 
     # Version number
-    version = '1.1.3'
+    version = '1.1.4'
 
-    # Create a custom formatter for the ASCII art log message
-    class ASCIIArtFormatter(logging.Formatter):
-        def format(self, record):
-            return record.getMessage()
-    # Create a separate handler for the ASCII art log message
-    ascii_art_handler = logging.StreamHandler()
-    ascii_art_handler.setFormatter(ASCIIArtFormatter())
-    logger.addHandler(ascii_art_handler)
-    # Log the ASCII art and version number & remove the handler
+    # Log the ASCII art and version number
     logger.info(ascii_art.format(version=version)  + "\n" + "\n")
-    logger.removeHandler(ascii_art_handler)
 
     # Define healthcheck
     def healthcheck():
@@ -64,7 +55,7 @@ def main():
         rclone.setup()
     except Exception as e:
         # Log the exception
-        logger.error('%s: %s', dt(), e)
+        logger.error(e)
 
     try:
         if PLEXUSER:
@@ -80,7 +71,7 @@ def main():
                 update.update_disabled()
     except Exception as e:
         # Log the exception
-        logger.error('%s: %s', dt(), e)
+        logger.error(e)
 
 if __name__ == "__main__":
     # Call the main function
