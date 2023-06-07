@@ -24,7 +24,7 @@ def main():
 '''
 
     # Version number
-    version = '1.2.2'
+    version = '1.2.3'
 
     # Log the ASCII art and version number
     logger.info(ascii_art.format(version=version)  + "\n" + "\n")

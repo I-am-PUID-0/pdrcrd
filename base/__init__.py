@@ -110,6 +110,9 @@ def manage_log_files(log_directory, max_backups):
         for i in range(num_files_to_delete):
             os.remove(log_files[i])
 
+# Start the logger
+logger = get_logger()
+
 # log file management
 log_directory = './log'
 max_backups = 7
