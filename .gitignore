@@ -364,5 +364,7 @@ FodyWeavers.xsd
 
 # debug
 **/config/	
+**/plex_debrid/
+**/data/
 **/log/
 *.env

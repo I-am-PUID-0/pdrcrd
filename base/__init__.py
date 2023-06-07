@@ -19,11 +19,6 @@ import threading
 
 load_dotenv(find_dotenv('./config/.env'))
 
-def dt():
-    tnow = datetime.now()
-    dt_string = tnow.strftime("%b %e, %Y %H:%M:%S")
-    return dt_string
-
 def get_logger():
     logger_name = "pdrcrd_logger"
     log_directory = './log'
@@ -39,7 +34,7 @@ def get_logger():
     logger.setLevel(logging.INFO)
 
     # Create formatter
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', dt())
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%b %e, %Y %H:%M:%S')
 
     # Create file handler
     file_handler = TimedRotatingFileHandler(log_path, when='midnight', backupCount=7)

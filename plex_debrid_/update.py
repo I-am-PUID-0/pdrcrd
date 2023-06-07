@@ -5,7 +5,7 @@ logger = get_logger()
 
 def start_plex_debrid():    
     global pd 
-    pd = subprocess.Popen(['python', '/plex_debrid/main.py', '--config-dir', '/config'], start_new_session=True)
+    pd = subprocess.Popen(['python', './plex_debrid/main.py', '--config-dir', '/config'], start_new_session=True)
 
 def update_disabled():
     logger.info("Automatic update disabled")
@@ -19,7 +19,7 @@ def update_enabled():
 def update_available():
     logger.info("Checking for available updates")
     
-    with open('/config/settings.json', 'r') as f:
+    with open('./config/settings.json', 'r') as f:
         json_data = load(f)
         version = json_data['version'][0]
         logger.info(f"Currently installed [v{version}]")
@@ -32,7 +32,7 @@ def update_available():
             v = regex.search("(?<=')([0-9]+\.[0-9]+)(?=')", response).group()
 
             if float(version) < float(v):
-                target = '/plex_debrid'
+                target = './plex_debrid'
 
                 with requests.get('https://github.com/itsToggle/plex_debrid/archive/refs/heads/main.zip') as r:
                     z = zipfile.ZipFile(io.BytesIO(r.content))

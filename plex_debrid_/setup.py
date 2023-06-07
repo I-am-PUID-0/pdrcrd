@@ -1,22 +1,24 @@
 from base import *
+
+
 # Get logger object
 logger = get_logger()
 
 def pd_setup():
     logger.info("Configuring plex_debrid")
-    settings_file = "/config/settings.json"
+    settings_file = "./config/settings.json"
     
     # Check if settings file exists, if not, copy default settings
     if not os.path.exists(settings_file):
         subprocess.run(
-            ["cp", "/plex_debrid_/settings-default.json", settings_file], check=True
+            ["cp", "./plex_debrid_/settings-default.json", settings_file], check=True
         )
-        
+    
     try:
         # Check if PLEXUSER and PLEXTOKEN environment variables are set
         if not (PLEXUSER is None or PLEXTOKEN is None):
             # If set, open settings file and update with PLEXUSER and PLEXTOKEN
-            with open("/config/settings.json", "r+") as f:
+            with open(settings_file, "r+") as f:
                 json_data = load(f)
                 json_data["Plex users"][0] = [PLEXUSER, PLEXTOKEN]
                 f.seek(0)
@@ -37,7 +39,7 @@ def pd_setup():
         # Check if RDAPIKEY environment variable is set
         if not (RDAPIKEY is None):
             # If set, open settings file and update with RDAPIKEY
-            with open("/config/settings.json", "r+") as f:
+            with open(settings_file, "r+") as f:
                 json_data = load(f)
                 json_data["Real Debrid API Key"] = RDAPIKEY
                 f.seek(0)
@@ -50,7 +52,7 @@ def pd_setup():
         # Check if PLEXADD environment variable is set
         if not (PLEXADD is None):
             # If set, open settings file and update with PLEXADD
-            with open("/config/settings.json", "r+") as f:
+            with open(settings_file, "r+") as f:
                 json_data = load(f)
                 json_data["Plex server address"] = PLEXADD
                 f.seek(0)
@@ -63,7 +65,7 @@ def pd_setup():
         # Check if SHOWMENU environment variable is set
         if not (SHOWMENU is None):
             # If set, open settings file and update with SHOWMENU
-            with open("/config/settings.json", "r+") as f:
+            with open(settings_file, "r+") as f:
                 json_data = load(f)
                 json_data["Show Menu on Startup"] = SHOWMENU
                 f.seek(0)
@@ -75,7 +77,7 @@ def pd_setup():
         # Check if LOGFILE environment variable is set
         if not (LOGFILE is None):
             # If set, open settings file and update with LOGFILE
-            with open("/config/settings.json", "r+") as f:
+            with open(settings_file, "r+") as f:
                 json_data = load(f)
                 json_data["Log to file"] = LOGFILE
                 f.seek(0)

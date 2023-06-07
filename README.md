@@ -5,6 +5,7 @@ A combined docker image for the unified deployment of **[itsToggle's](https://gi
 
 
 ## Features
+ - Optional independent or combined utilization of rclone_RD and plex_debrid
  - Bind-mounts rclone_RD to the host
  - RealDebrid API Key passed to rclone_rd and plex_debrid via docker enviorment variable
  - rclone_RD config automatically generated
@@ -12,7 +13,7 @@ A combined docker image for the unified deployment of **[itsToggle's](https://gi
  - Fuse.conf ```user_allow_other``` applied within the container vs. the host
  - Plex server values passed to plex_debrid settings.json via docker enviorment variables
  - Automatic update of plex_debrid to the latest version
- - Optional independent or combined utilization of rclone_RD and plex_debrid
+ - use of .env file for setting environment variables
 
 ## Docker Hub
 A prebuilt image is hosted on [docker hub](https://hub.docker.com/r/iampuid0/pdrcrd) 
@@ -67,7 +68,7 @@ Addtional details can be found in the [pdrcrd Wiki](https://github.com/I-am-PUID
 ## Environment Variables
 
 To customize some properties of the container, the following environment
-variables can be passed via the `-e` parameter (one for each variable) or via the docker-compose file within the ```environment:``` section.  Value
+variables can be passed via the `-e` parameter (one for each variable), or via the docker-compose file within the ```environment:``` section, or with a .env file saved to the config directory -- See the wiki for more info on using the [.env](https://github.com/I-am-PUID-0/pdrcrd/wiki/Settings#use-of-env-file-for-setting-environment-variables).  Value
 of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 
 | Variable       | Description                                  | Default | Required for rclone_RD| Required for plex_debrid|
@@ -103,7 +104,6 @@ format: `<HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]`.
 |`/mnt`| rw | This is where rclone_RD will be mounted. Not required when only utilizing plex_debrid.   |
 
 ## TODO
-- Test the use of .env files to setup rclone and plex_debrid
 - Add support for setting user/group -- currently runs as root
 - Add docker s6-overlay
 - Evaluate adding Plex Media Server to the container

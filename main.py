@@ -24,7 +24,7 @@ def main():
 '''
 
     # Version number
-    version = '1.2.0'
+    version = '1.2.1'
 
     # Log the ASCII art and version number
     logger.info(ascii_art.format(version=version)  + "\n" + "\n")
@@ -47,31 +47,33 @@ def main():
 
     try:
         # Check if the RD_API_KEY environment variable is set
-        if not RDAPIKEY:
-            # If not, raise an exception
-            raise Exception("Please set the realdebrid API Key: RD_API_KEY environment variable is missing from the docker-compose file")
-
-        # Call the rclone setup function
-        rclone.setup()
+        if not RDAPIKEY is None:
+            if not (os.getenv("RCLONE_MOUNT_NAME") is None):
+                # Call the rclone setup function
+                rclone.setup()
+        else:
+            # Raise an exception if the RD_API_KEY environment variable is not set
+            raise Exception(
+                "Please set the realdebrid API Key: RD_API_KEY environment variable is missing from the docker-compose file"
+            )
     except Exception as e:
         # Log the exception
         logger.error(e)
 
     try:
-        if PLEXUSER:
+        if not PLEXUSER is None:
             # Call the pd_setup function
             setup.pd_setup()
 
             # Check if the AUTO_UPDATE environment variable is set
-            if AUTOUPDATE:
+            if not AUTOUPDATE is None:
                 # Call the auto_update function
                 update.auto_update()
             else:
                 # Call the update_disabled function
                 update.update_disabled()
-    except Exception as e:
-        # Log the exception
-        logger.error(e)
+    except:
+        pass
 
 if __name__ == "__main__":
     # Call the main function
