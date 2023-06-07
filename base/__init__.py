@@ -22,7 +22,7 @@ load_dotenv(find_dotenv('./config/.env'))
 def get_logger():
     logger_name = "pdrcrd_logger"
     log_directory = './log'
-    log_filename = "pdrcrd.log"
+    log_filename = f"pdrcrd_{datetime.now().strftime('%Y-%m-%d')}.log"
     log_path = os.path.join(log_directory, log_filename)
 
     # Check if a logger with the specified name already exists
