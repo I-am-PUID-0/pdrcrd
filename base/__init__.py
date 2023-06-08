@@ -68,13 +68,13 @@ class StreamToLogger:
 # Check if the log file needs to be rotated based on date change
 def check_log_rotation(log_handler):
     current_date = datetime.now().date()
-    log_filename = log_handler.baseFilename
+    log_filename = os.path.basename(log_handler.baseFilename)
     log_file_date = datetime.strptime(log_filename, 'pdrcrd_%Y-%m-%d.log').date()
-    
+
     if current_date > log_file_date:
         log_handler.doRollover()
         new_log_filename = f"pdrcrd_{current_date.strftime('%Y-%m-%d')}.log"
-        log_handler.baseFilename = os.path.join(log_handler.baseFilename.rsplit('/', 1)[0], new_log_filename)
+        log_handler.baseFilename = os.path.join(os.path.dirname(log_handler.baseFilename), new_log_filename)
 
 # Set up the log rotation check schedule
 def schedule_log_rotation_check():
