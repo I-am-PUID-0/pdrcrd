@@ -75,6 +75,7 @@ def check_log_rotation(log_handler):
         log_handler.doRollover()
         new_log_filename = f"pdrcrd_{current_date.strftime('%Y-%m-%d')}.log"
         log_handler.baseFilename = os.path.join(os.path.dirname(log_handler.baseFilename), new_log_filename)
+        log_handler.namer = lambda name: log_handler.baseFilename
 
 # Set up the log rotation check schedule
 def schedule_log_rotation_check():

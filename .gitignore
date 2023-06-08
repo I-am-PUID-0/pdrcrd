@@ -362,9 +362,9 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# debug
-**/config/	
+# debug	
 **/plex_debrid/
 **/data/
 **/log/
 *.env
+/config
