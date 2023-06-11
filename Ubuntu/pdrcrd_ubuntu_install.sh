@@ -136,7 +136,7 @@ done
 echo $'Do you wish to start pdrcrd?\n'
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) sudo docker-compose -f /etc/docker/docker-compose.yml up -d; 
+        Yes ) sudo docker compose -f /etc/docker/docker-compose.yml up -d; 
               break;;
         No ) echo $'\n'; break;;
     esac
