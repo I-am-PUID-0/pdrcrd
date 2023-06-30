@@ -6,11 +6,11 @@ A combined docker image for the unified deployment of **[itsToggle's](https://gi
 
 ## Features
  - Bind-mounts rclone_RD to the host
- - RealDebrid API Key passed to rclone_rd and plex_debrid via docker enviorment variable
+ - RealDebrid API Key passed to rclone_rd and plex_debrid via docker environment variable
  - rclone_RD config automatically generated
- - rclone_RD flags passed via docker enviorment variable
+ - rclone_RD flags passed via docker environment variable
  - Fuse.conf ```user_allow_other``` applied within the container vs. the host
- - Plex server values passed to plex_debrid settings.json via docker enviorment variables
+ - Plex server values passed to plex_debrid settings.json via docker environment variables
  - Automatic update of plex_debrid to the latest version
  - Optional independent or combined utilization of rclone_RD and plex_debrid
 
@@ -61,7 +61,7 @@ Shell script to install docker and/or pdrcrd. See the [pdrcrd Wiki](https://gith
 
 ## Automatic Updates
 If you would like to enable automatic updates for plex_debrid, utilize the ```AUTO_UPDATE``` environment variable. 
-Addtional details can be found in the [pdrcrd Wiki](https://github.com/I-am-PUID-0/pdrcrd/wiki/Settings#automatic-updates)
+Additional details can be found in the [pdrcrd Wiki](https://github.com/I-am-PUID-0/pdrcrd/wiki/Settings#automatic-updates)
 
 
 ## Environment Variables
@@ -85,7 +85,7 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`PLEX_USER`| The [Plex USERNAME](https://app.plex.tv/desktop/#!/settings/account) for your account. | ` ` || :heavy_check_mark:|
 |`PLEX_TOKEN`| The [Plex Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) associated with PLEX_USER. | ` ` || :heavy_check_mark:|
 |`PLEX_ADDRESS`| The URL of your Plex server. Example: http://192.168.0.100:32400 or http://plex:32400 - format must include ```http://``` or ```https://``` and have no trailing characters after the port number (32400). E.g., ```/``` | ` ` || :heavy_check_mark:|
-|`SHOW_MENU`| Enable the plex_debrid menu to show upon startup, requiring user interaction before the program runs. Conversely if the plex_debrid menu is disabled, the program will automatically run upon successful startup. If used, the value must be ```true``` or ```false```. | `true` |
+|`SHOW_MENU`| Enable the plex_debrid menu to show upon startup, requiring user interaction before the program runs. Conversely, if the plex_debrid menu is disabled, the program will automatically run upon successful startup. If used, the value must be ```true``` or ```false```. | `true` |
 |`PD_LOGFILE`| Log file for plex_debrid. The log file will appear in the ```/config``` as ```plex_debrid.log```. If used, the value must be ```true``` or ```false```. | `false` |
 |`AUTO_UPDATE`| Enable automatic updates of plex_debrid. Adding this variable will enable automatic updates to the latest version of plex_debrid locally within the container. No values are required. | `false` |
 |`AUTO_UPDATE_INTERVAL`| Interval between automatic update checks in hours. #optional - if used, value must be a [Whole Number](https://www.oxfordlearnersdictionaries.com/us/definition/english/whole-number). | `24` |
@@ -98,7 +98,7 @@ format: `<HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]`.
 
 | Container path  | Permissions | Description |
 |-----------------|-------------|-------------|
-|`/config`| rw | This is where the application stores the rclone.conf, plex_debrid settings.json, and any files needing persistency. CAUTION: rclone.conf is overwritten upon start/restart of the container. Do NOT use an existing rclone.conf file if you have other rclone services. |
+|`/config`| rw | This is where the application stores the rclone.conf, plex_debrid settings.json, and any files needing persistence. CAUTION: rclone.conf is overwritten upon start/restart of the container. Do NOT use an existing rclone.conf file if you have other rclone services. |
 |`/log`| rw | This is where the application stores its log files. |
 |`/mnt`| rw | This is where rclone_RD will be mounted. Not required when only utilizing plex_debrid.   |
 
@@ -113,7 +113,7 @@ format: `<HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]`.
 
 pdrcrd allows for the simultaneous or individual deployment of plex_debrid and/or rclone_RD
 
-For addtional details on deployment, see the [pdrcrd Wiki](https://github.com/I-am-PUID-0/pdrcrd/wiki/Settings#deployment)
+For additional details on deployment, see the [pdrcrd Wiki](https://github.com/I-am-PUID-0/pdrcrd/wiki/Settings#deployment)
 ## Community
 
 ### pdrcrd
