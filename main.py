@@ -1,15 +1,15 @@
 from base import *
-from plex_debrid_ import update
-from plex_debrid_ import setup
+from plex_debrid_ import update, setup 
 from rclone_rd import rclone
+from cleanup import duplicate_cleanup
 
 
 def main():
-    # Get logger object
     logger = get_logger()
 
-    # ASCII art and version number
-    ascii_art = '''
+    version = '1.3.0'
+
+    ascii_art = f'''
                                                                            
                       88                                               88  
                       88                                               88  
@@ -23,58 +23,48 @@ def main():
 88                        Version: {version}                                    
 '''
 
-    # Version number
-    version = '1.2.7'
-
-    # Log the ASCII art and version number
     logger.info(ascii_art.format(version=version)  + "\n" + "\n")
 
-    # Define healthcheck
     def healthcheck():
         while True:
+            time.sleep(10)
             try:
-                # Run healthcheck.py and capture the output
                 result = subprocess.run(['python', 'healthcheck.py'], capture_output=True, text=True) 
-                # Log any error messages
                 if result.stderr:
-                    logger.error(result.stderr)
+                    logger.error(result.stderr.strip())
             except Exception as e:
                 logger.error('Error running healthcheck.py: %s', e)
-            time.sleep(60)
+            time.sleep(50)
     thread = threading.Thread(target=healthcheck)
     thread.daemon = True
     thread.start()
 
     try:
-        # Check if the RD_API_KEY environment variable is set
+        if DUPECLEAN is None:
+            pass
+        elif DUPECLEAN is not None:
+            duplicate_cleanup.duplicate_cleanup()
+    except Exception as e:
+        logger.error(e)
+
+    try:
         if not RDAPIKEY is None:
-            if not (os.getenv("RCLONE_MOUNT_NAME") is None):
-                # Call the rclone setup function
+            if not RCLONEMN is None:
                 rclone.setup()
         else:
-            # Raise an exception if the RD_API_KEY environment variable is not set
-            raise Exception(
-                "Please set the realdebrid API Key: RD_API_KEY environment variable is missing from the docker-compose file"
-            )
+            raise MissingAPIKeyException()
     except Exception as e:
-        # Log the exception
         logger.error(e)
 
     try:
         if not PLEXUSER is None:
-            # Call the pd_setup function
             setup.pd_setup()
-
-            # Check if the AUTO_UPDATE environment variable is set
             if not AUTOUPDATE is None:
-                # Call the auto_update function
                 update.auto_update()
             else:
-                # Call the update_disabled function
                 update.update_disabled()
     except:
         pass
 
 if __name__ == "__main__":
-    # Call the main function
     main()

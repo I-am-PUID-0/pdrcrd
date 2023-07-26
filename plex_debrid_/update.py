@@ -1,6 +1,6 @@
 from base import *
 
-# Get logger object
+
 logger = get_logger()
 
 def start_plex_debrid():    
@@ -56,7 +56,6 @@ def update_available():
                 logger.info(f"Automatic update installed [v{v}]")
                 logger.info("Restarting plex_debrid")
                 pd.kill()
-                logger.info("Restarted plex_debrid")
                 start_plex_debrid()
             else:
                 logger.info("Automatic update not required")

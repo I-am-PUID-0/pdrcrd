@@ -17,7 +17,8 @@ RUN \
   chmod 711 rclone-linux &&\
   unzip main.zip && rm main.zip && \
   mv plex_debrid-main/ plex_debrid && \   
-  pip3 install -r /plex_debrid/requirements.txt 
+  pip3 install -r /plex_debrid/requirements.txt && \
+  pip3 install -r /requirements.txt
 HEALTHCHECK --interval=60s --timeout=10s \
   CMD python /healthcheck.py
 VOLUME /config  
