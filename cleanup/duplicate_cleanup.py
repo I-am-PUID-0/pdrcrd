@@ -10,7 +10,7 @@ max_retry_attempts = 5
 retry_interval = 10
 
 def delete_media_with_retry(media):
-    logger = get_logger(log_name='duplicate_cleanup')
+    #logger = get_logger(log_name='duplicate_cleanup')
     retry_attempt = 0
     continue_execution = True
 
@@ -32,7 +32,7 @@ def delete_media_with_retry(media):
     return continue_execution
 
 def process_tv_shows():
-    logger = get_logger(log_name='duplicate_cleanup')
+    #logger = get_logger(log_name='duplicate_cleanup')
     try:
         plex_server = PlexServer(PLEXADD, PLEXTOKEN)        
         tv_section = None
@@ -86,7 +86,7 @@ def process_tv_shows():
 
 
 def process_movies():
-    logger = get_logger(log_name='duplicate_cleanup')
+    #logger = get_logger(log_name='duplicate_cleanup')
     try:
         plex_server = PlexServer(PLEXADD, PLEXTOKEN)        
         movie_section = None

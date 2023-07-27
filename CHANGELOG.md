@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.1] - 2023-07-27
+
+### Changed
+
+- revert to single logger
+
+
 ## [1.3.0] - 2023-07-26
 
 ### Added
@@ -23,17 +30,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - check_log_rotation for log file name
 
+
 ## [1.2.6] - 2023-06-08
 
 ### Fixed
 
 - check_log_rotation
 
+
 ## [1.2.5] - 2023-06-07
 
 ### Fixed
 
 - log file name
+
 
 ## [1.2.4] - 2023-06-07
 
@@ -47,11 +57,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - logger startup process
 
+
 ## [1.2.2] - 2023-06-07
 
 ### Changed
 
 - log rotation process
+
 
 ## [1.2.1] - 2023-06-07
 
@@ -63,6 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - restrucure directory paths to be releative to the project root
 
+
 ## [1.2.0] - 2023-06-06
 
 ### Added
@@ -73,11 +86,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - logger process
 
+
 ## [1.1.3] - 2023-06-06
 
 ### Fixed
 
 - logger for ASCII Art
+
 
 ## [1.1.2] - 2023-06-06
 
@@ -85,17 +100,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - logger for ASCII Art & rclone setup
 
+
 ## [1.1.1] - 2023-06-06
 
 ### Fixed
 - logger for ASCII Art & healthcheck
 - typos
 
+
 ## [1.1.0] - 2023-06-06
 
 ### Added
 
 - logger to file and console for pdrcrd
+
 
 ## [1.0.0] - 2023-06-06
 
