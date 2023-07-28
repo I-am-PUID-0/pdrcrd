@@ -1,6 +1,6 @@
 #! /bin/bash
 set -e
-echo $'beta v0.01\n'
+echo $'beta v0.03\n'
 
 echo $'Do you wish to install docker?\n'
 select yn in "Yes" "No"; do
@@ -30,41 +30,54 @@ done
 echo $'Do you wish to install pdrcrd?\n'
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) echo $'\nDo you wish to set the config directory?  default: /etc/docker/config \n';
+        Yes ) echo $'\nDo you wish to set the docker compose file directory?  default: ~/docker \n';
                 select yn in "Yes" "No"; do
                     case $yn in
-                        Yes ) echo  $'\nPlease input the absolute path for your config directory. default: /etc/docker/config \n';
+                        Yes ) echo  $'\nPlease input the absolute path for your docker compose file directory. default: ~/docker \n';
+                              read -p 'Compose Path: ' composepathvar && echo $'\n';
+                              echo $'The docker compose file directory path is set to' $composepathvar && echo $'\n';
+                              break;;
+                        No )  sudo mkdir ~/docker 2>/dev/null || true; 
+                              composepathvar=~/docker; 
+                              echo $'The docker compose file directory path is set to' $composepathvar && echo $'\n';
+                              break;;
+                    esac
+                done  
+              echo $'\nDo you wish to set the config directory?  default: ~/docker/config \n';
+                select yn in "Yes" "No"; do
+                    case $yn in
+                        Yes ) echo  $'\nPlease input the absolute path for your config directory. default: ~/docker/config \n';
                               read -p 'Config Path: ' configpathvar && echo $'\n';
                               echo $'The config directory path is set to' $configpathvar && echo $'\n';
                               break;;
-                        No )  sudo mkdir /etc/docker/config 2>/dev/null || true; 
-                              configpathvar=/etc/docker/config; 
+                        No )  sudo mkdir ~/docker/config 2>/dev/null || true; 
+                              configpathvar=~/docker/config; 
                               echo $'The config directory path is set to' $configpathvar && echo $'\n';
                               break;;
                     esac
                 done  
-              echo $'Do you wish to set the log directory?  default: /etc/docker/log \n';
+              echo $'Do you wish to set the log directory?  default: ~/docker/log \n';
                 select yn in "Yes" "No"; do
                     case $yn in
-                        Yes ) echo $'\nPlease input the absolute path for your log directory. default: /etc/docker/log \n';
+                        Yes ) echo $'\nPlease input the absolute path for your log directory. default: ~/docker/log \n';
                               read -p 'Log Path: ' logpathvar && echo $'\n';
                               echo "The log directory path is set to" $logpathvar && echo $'\n';
                               break;;
-                        No )  sudo mkdir /etc/docker/log 2>/dev/null || true; 
-                              logpathvar=/etc/docker/log; 
+                        No )  sudo mkdir ~/docker/log 2>/dev/null || true; 
+                              logpathvar=~/docker/log; 
                               echo $'The log directory path is set to' $logpathvar && echo $'\n';
                               break;;
                     esac
                 done  
-              echo $'Do you wish to set the rclone mount directory?  default: /etc/docker/mnt \n';
+              echo $'Do you wish to set the rclone mount directory?  default: ~/docker/mnt \n';
                 select yn in "Yes" "No"; do
                     case $yn in
-                        Yes ) echo $'\nPlease input the absolute path for your rclone mount directory. default: /etc/docker/log \n';
+                        Yes ) echo $'\nPlease input the absolute path for your rclone mount directory. default: ~/docker/log \n';
                               read -p 'Rclone Mount Directory: ' mntdirvar && echo $'\n';
                               echo "The rclone mount directory path is set to" $mntdirevar && echo $'\n';
                               break;;
-                        No )  sudo mkdir /etc/docker/mnt 2>/dev/null || true; 
-                              export mntdirvar=/etc/docker/mnt; 
+                        No )  sudo mkdir ~/docker/mnt 2>/dev/null || true; 
+                              export mntdirvar=~/docker/mnt; 
                               echo "The rclone mount directory path is set to" $mntdirevar && echo $'\n';
                               break;;
                     esac
@@ -90,7 +103,7 @@ select yn in "Yes" "No"; do
               echo $'Please input your Plex Token.\n';                
               read -p 'Plex Token: ' plextk && echo $'\n';             
               TZ="$(cat /etc/timezone)"   
-sudo tee /etc/docker/docker-compose.yml << EOF  
+sudo tee $composepathvar/docker-compose.yml << EOF  
 services:
   pdrcrd:
     container_name: pdrcrd
@@ -136,7 +149,7 @@ done
 echo $'Do you wish to start pdrcrd?\n'
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) sudo docker compose -f /etc/docker/docker-compose.yml up -d; 
+        Yes ) sudo docker compose -f $composepathvar/docker-compose.yml up -d; 
               break;;
         No ) echo $'\n'; break;;
     esac
@@ -149,3 +162,4 @@ select yn in "Yes" "No"; do
         No ) echo $'\n'; break;;
     esac
 done
+
