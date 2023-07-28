@@ -5,15 +5,16 @@ A combined docker image for the unified deployment of **[itsToggle's](https://gi
 
 
 ## Features
- - Optional independent or combined utilization of rclone_RD and plex_debrid
- - Bind-mounts rclone_RD to the host
- - RealDebrid API Key passed to rclone_rd and plex_debrid via docker environment variable
- - rclone_RD config automatically generated
- - rclone_RD flags passed via docker environment variable
- - Fuse.conf ```user_allow_other``` applied within the container vs. the host
- - Plex server values passed to plex_debrid settings.json via docker environment variables
- - Automatic update of plex_debrid to the latest version
- - use of .env file for setting environment variables
+ - [Optional independent or combined utilization of rclone_RD and plex_debrid](https://github.com/I-am-PUID-0/pdrcrd/wiki#optional-independent-or-combined-utilization-of-rclone_rd-and-plex_debrid)
+ - [Bind-mounts rclone_RD to the host](https://github.com/I-am-PUID-0/pdrcrd/wiki#bind-mounts-rclone_rd-to-the-host)
+ - [RealDebrid API Key passed to rclone_rd and plex_debrid via docker environment variable](https://github.com/I-am-PUID-0/pdrcrd/wiki#realdebrid-api-key-passed-to-rclone_rd-and-plex_debrid-via-docker-environment-variable)
+ - [rclone_RD config automatically generated](https://github.com/I-am-PUID-0/pdrcrd/wiki#rclone_rd-config-automatically-generated)
+ - [rclone_RD flags passed via docker environment variable](https://github.com/I-am-PUID-0/pdrcrd/wiki#rclone_rd-flags-passed-via-docker-environment-variable)
+ - [Fuse.conf ```user_allow_other``` applied within the container vs. the host](https://github.com/I-am-PUID-0/pdrcrd/wiki#fuseconf-user_allow_other-applied-within-the-container-vs-the-host)
+ - [Plex server values passed to plex_debrid settings.json via docker environment variables](https://github.com/I-am-PUID-0/pdrcrd/wiki#plex-server-values-passed-to-plex_debrid-settingsjson-via-docker-environment-variables)
+ - [Automatic Update of plex_debrid to the latest version](https://github.com/I-am-PUID-0/pdrcrd/wiki#automatic-update-of-plex_debrid-to-the-latest-version)
+ - [Use of .env file for setting environment variables](https://github.com/I-am-PUID-0/pdrcrd/wiki#use-of-env-file-for-setting-environment-variables)
+ - [Duplicate Cleanup](https://github.com/I-am-PUID-0/pdrcrd/wiki#duplicate-cleanup) 
 
 ## Docker Hub
 A prebuilt image is hosted on [docker hub](https://hub.docker.com/r/iampuid0/pdrcrd) 
