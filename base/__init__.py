@@ -23,7 +23,7 @@ load_dotenv(find_dotenv('./config/.env'))
 
 class MissingAPIKeyException(Exception):
     def __init__(self):
-        self.message = "Please set the realdebrid API Key: RD_API_KEY environment variable is missing from the docker-compose file"
+        self.message = "Please set the debrid API Key: environment variable is missing from the docker-compose file"
         super().__init__(self.message)
 
 class MissingEnvironmentVariable(Exception):
@@ -166,6 +166,7 @@ def get_logger(log_name='pdrcrd', log_dir='./log'):
 PLEXUSER = os.getenv('PLEX_USER')
 PLEXTOKEN = os.getenv('PLEX_TOKEN')
 RDAPIKEY = os.getenv('RD_API_KEY')
+ADAPIKEY = os.getenv('AD_API_KEY')
 PLEXADD = os.getenv('PLEX_ADDRESS')
 SHOWMENU = os.getenv('SHOW_MENU')
 LOGFILE = os.getenv('PD_LOGFILE')

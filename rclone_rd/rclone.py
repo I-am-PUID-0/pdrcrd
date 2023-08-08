@@ -6,33 +6,60 @@ def setup():
     logger.info("Checking rclone_RD flags")
 
     try:
-        if not os.environ.get("RCLONE_MOUNT_NAME"):
+        if not RCLONEMN:
             raise Exception("Please set a name for the rclone mount")
-        logger.info(f"Configuring the rclone mount name to {os.environ['RCLONE_MOUNT_NAME']}")
+        logger.info(f"Configuring the rclone mount name to {RCLONEMN}")
 
-        if not os.environ.get("RD_API_KEY"):
+        if not RDAPIKEY and not ADAPIKEY:
             raise Exception("Please set the API Key for the rclone mount")
         logger.info("Configuring the API key")
 
-        logger.info("Configuring rclone_RD")
-        subprocess.run(["umount", f"/data/{os.environ['RCLONE_MOUNT_NAME']}"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        os.makedirs(f"/data/{os.environ['RCLONE_MOUNT_NAME']}", exist_ok=True)
+        if RDAPIKEY and ADAPIKEY:
+            RCLONEMN_RD = f"{RCLONEMN}_RD"
+            RCLONEMN_AD = f"{RCLONEMN}_AD"
+        else:
+            RCLONEMN_RD = RCLONEMN_AD = RCLONEMN
+
         with open("/config/rclone.config", "w") as f:
-            f.write(f"[{os.environ['RCLONE_MOUNT_NAME']}]\n")
-            f.write("type = realdebrid\n")
-            f.write(f"api_key = {os.environ['RD_API_KEY']}\n")
+            if RDAPIKEY:
+                f.write(f"[{RCLONEMN_RD}]\n")
+                f.write("type = realdebrid\n")
+                f.write(f"api_key = {RDAPIKEY}\n")
+            if ADAPIKEY:
+                f.write(f"[{RCLONEMN_AD}]\n")
+                f.write("type = webdav\n")
+                f.write("url = https://alldebrid.com/webdav/\n")
+                f.write("vendor = other\n")
+                f.write("pass = lzDDFcDW6megEYv7Oq64qReBamOQ\n")
+                f.write(f"user = {ADAPIKEY}\n")
+
         with open("/etc/fuse.conf", "a") as f:
             f.write("user_allow_other\n")
-        try:
-            if not os.environ.get("PLEX_USER"):
-                logger.info("Starting rclone_RD")
-                subprocess.run(["/rclone-linux", "mount", f"{os.environ['RCLONE_MOUNT_NAME']}:", f"/data/{os.environ['RCLONE_MOUNT_NAME']}", "--config", "/config/rclone.config", "--allow-other"])
+
+        mount_names = []
+        if RDAPIKEY:
+            mount_names.append(RCLONEMN_RD)
+        if ADAPIKEY:
+            mount_names.append(RCLONEMN_AD)
+
+        for idx, mn in enumerate(mount_names):
+            logger.info(f"Configuring rclone_RD for {mn}")
+            subprocess.run(["umount", f"/data/{mn}"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            os.makedirs(f"/data/{mn}", exist_ok=True)
+            
+            if not PLEXUSER:
+                if idx != len(mount_names) - 1:  
+                    logger.info(f"Starting rclone_RD daemon for {mn}")
+                    subprocess.run(["/rclone-linux", "mount", f"{mn}:", f"/data/{mn}", "--config", "/config/rclone.config", "--allow-other", "--poll-interval=0", "--daemon"])
+                else:  
+                    logger.info(f"Starting rclone_RD for {mn}")
+                    subprocess.run(["/rclone-linux", "mount", f"{mn}:", f"/data/{mn}", "--config", "/config/rclone.config", "--allow-other", "--poll-interval=0"])
             else:
-                logger.info("Starting rclone_RD daemon")
-                subprocess.run(["/rclone-linux", "mount", f"{os.environ['RCLONE_MOUNT_NAME']}:", f"/data/{os.environ['RCLONE_MOUNT_NAME']}", "--config", "/config/rclone.config", "--allow-other","--daemon"])
-                logger.info("rclone_RD startup complete")                
-        except :
-            pass
+                logger.info(f"Starting rclone_RD daemon for {mn}")
+                subprocess.run(["/rclone-linux", "mount", f"{mn}:", f"/data/{mn}", "--config", "/config/rclone.config", "--allow-other", "--poll-interval=0", "--daemon"])
+                
+        logger.info("rclone_RD startup complete")
+
     except Exception as e:
         logger.error(e)
         exit(1)

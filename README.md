@@ -73,26 +73,27 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 
 | Variable       | Description                                  | Default | Required for rclone_RD| Required for plex_debrid|
 |----------------|----------------------------------------------|---------|:-:|:-:|
-|`TZ`| [TimeZone](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones) used by the container. | ` ` |
-|`RD_API_KEY`| [RealDebrid API key](https://real-debrid.com/apitoken). | ` ` | :heavy_check_mark:| :heavy_check_mark:|
-|`RCLONE_MOUNT_NAME`| A name for the rclone mount. | ` ` | :heavy_check_mark:|
-|`RCLONE_LOG_LEVEL`| [Log level](https://rclone.org/docs/#log-level-level) for rclone. | `NOTICE` |
-|`RCLONE_LOG_FILE`| [Log file](https://rclone.org/docs/#log-file-file) for rclone. | ` ` |
-|`RCLONE_DIR_CACHE_TIME`| [How long a directory should be considered up to date and not refreshed from the backend](https://rclone.org/commands/rclone_mount/#vfs-directory-cache). #optional, but recommended is 10s. | `5m` |
+|`TZ`| [TimeZone](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones) used by the container | ` ` |
+|`RD_API_KEY`| [RealDebrid API key](https://real-debrid.com/apitoken) | ` ` | :heavy_check_mark:| :heavy_check_mark:|
+|`AD_API_KEY`| [AllDebrid API key](https://alldebrid.com/apikeys/) | ` ` | :heavy_check_mark:| :heavy_check_mark:|
+|`RCLONE_MOUNT_NAME`| A name for the rclone mount | ` ` | :heavy_check_mark:|
+|`RCLONE_LOG_LEVEL`| [Log level](https://rclone.org/docs/#log-level-level) for rclone | `NOTICE` |
+|`RCLONE_LOG_FILE`| [Log file](https://rclone.org/docs/#log-file-file) for rclone | ` ` |
+|`RCLONE_DIR_CACHE_TIME`| [How long a directory should be considered up to date and not refreshed from the backend](https://rclone.org/commands/rclone_mount/#vfs-directory-cache) #optional, but recommended is 10s. | `5m` |
 |`RCLONE_CACHE_DIR`| [Directory used for caching](https://rclone.org/docs/#cache-dir-dir). | ` ` |
-|`RCLONE_VFS_CACHE_MODE`| [Cache mode for VFS](https://rclone.org/commands/rclone_mount/#vfs-file-caching). | ` ` |
-|`RCLONE_VFS_CACHE_MAX_SIZE`| [Max size of the VFS cache](https://rclone.org/commands/rclone_mount/#vfs-file-caching). | ` ` |
-|`RCLONE_VFS_CACHE_MAX_AGE`| [Max age of the VFS cache](https://rclone.org/commands/rclone_mount/#vfs-file-caching). | ` ` |
-|`PLEX_USER`| The [Plex USERNAME](https://app.plex.tv/desktop/#!/settings/account) for your account. | ` ` || :heavy_check_mark:|
-|`PLEX_TOKEN`| The [Plex Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) associated with PLEX_USER. | ` ` || :heavy_check_mark:|
+|`RCLONE_VFS_CACHE_MODE`| [Cache mode for VFS](https://rclone.org/commands/rclone_mount/#vfs-file-caching) | ` ` |
+|`RCLONE_VFS_CACHE_MAX_SIZE`| [Max size of the VFS cache](https://rclone.org/commands/rclone_mount/#vfs-file-caching) | ` ` |
+|`RCLONE_VFS_CACHE_MAX_AGE`| [Max age of the VFS cache](https://rclone.org/commands/rclone_mount/#vfs-file-caching) | ` ` |
+|`PLEX_USER`| The [Plex USERNAME](https://app.plex.tv/desktop/#!/settings/account) for your account | ` ` || :heavy_check_mark:|
+|`PLEX_TOKEN`| The [Plex Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) associated with PLEX_USER | ` ` || :heavy_check_mark:|
 |`PLEX_ADDRESS`| The URL of your Plex server. Example: http://192.168.0.100:32400 or http://plex:32400 - format must include ```http://``` or ```https://``` and have no trailing characters after the port number (32400). E.g., ```/``` | ` ` || :heavy_check_mark:|
-|`SHOW_MENU`| Enable the plex_debrid menu to show upon startup, requiring user interaction before the program runs. Conversely, if the plex_debrid menu is disabled, the program will automatically run upon successful startup. If used, the value must be ```true``` or ```false```. | `true` |
-|`PD_LOGFILE`| Log file for plex_debrid. The log file will appear in the ```/config``` as ```plex_debrid.log```. If used, the value must be ```true``` or ```false```. | `false` |
+|`SHOW_MENU`| Enable the plex_debrid menu to show upon startup, requiring user interaction before the program runs. Conversely, if the plex_debrid menu is disabled, the program will automatically run upon successful startup. If used, the value must be ```true``` or ```false``` | `true` |
+|`PD_LOGFILE`| Log file for plex_debrid. The log file will appear in the ```/config``` as ```plex_debrid.log```. If used, the value must be ```true``` or ```false``` | `false` |
 |`AUTO_UPDATE`| Enable automatic updates of plex_debrid. Adding this variable will enable automatic updates to the latest version of plex_debrid locally within the container. No values are required. | `false` |
-|`AUTO_UPDATE_INTERVAL`| Interval between automatic update checks in hours. Vaules can be any positive [whole](https://www.oxfordlearnersdictionaries.com/us/definition/english/whole-number) or [decimal](https://www.oxfordreference.com/display/10.1093/oi/authority.20110803095705740;jsessionid=3FDC96CC0D79CCE69702661D025B9E9B#:~:text=The%20separator%20used%20between%20the,number%20expressed%20in%20decimal%20representation.) point based number. Ex. a value of .5 would yield thirty minutes and 1.5 would yield one and a half hours . | `24` |
+|`AUTO_UPDATE_INTERVAL`| Interval between automatic update checks in hours. Vaules can be any positive [whole](https://www.oxfordlearnersdictionaries.com/us/definition/english/whole-number) or [decimal](https://www.oxfordreference.com/display/10.1093/oi/authority.20110803095705740;jsessionid=3FDC96CC0D79CCE69702661D025B9E9B#:~:text=The%20separator%20used%20between%20the,number%20expressed%20in%20decimal%20representation.) point based number. Ex. a value of .5 would yield thirty minutes and 1.5 would yield one and a half hours | `24` |
 |`DUPLICATE_CLEANUP`| Automated cleanup of duplicate content in Plex.  | `false` |
-|`CLEANUP_INTERVAL`| Interval between duplicate cleanup in hours. Vaules can be any positive [whole](https://www.oxfordlearnersdictionaries.com/us/definition/english/whole-number) or [decimal](https://www.oxfordreference.com/display/10.1093/oi/authority.20110803095705740;jsessionid=3FDC96CC0D79CCE69702661D025B9E9B#:~:text=The%20separator%20used%20between%20the,number%20expressed%20in%20decimal%20representation.) point based number. Ex. a value of .5 would yield thirty minutes and 1.5 would yield one and a half hours . | `24` |
-|`PDRCRD_LOG_LEVEL`| The level at which logs should be captured. See the python [Logging Levels](https://docs.python.org/3/library/logging.html#logging-levels) documentation for more details.  | `INFO` |
+|`CLEANUP_INTERVAL`| Interval between duplicate cleanup in hours. Vaules can be any positive [whole](https://www.oxfordlearnersdictionaries.com/us/definition/english/whole-number) or [decimal](https://www.oxfordreference.com/display/10.1093/oi/authority.20110803095705740;jsessionid=3FDC96CC0D79CCE69702661D025B9E9B#:~:text=The%20separator%20used%20between%20the,number%20expressed%20in%20decimal%20representation.) point based number. Ex. a value of .5 would yield thirty minutes and 1.5 would yield one and a half hours | `24` |
+|`PDRCRD_LOG_LEVEL`| The level at which logs should be captured. See the python [Logging Levels](https://docs.python.org/3/library/logging.html#logging-levels) documentation for more details  | `INFO` |
 |`PDRCRD_LOG_COUNT`| The number logs to retain. Result will be value + current log  | `2` |
 
 ## Data Volumes
@@ -103,15 +104,13 @@ format: `<HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]`.
 
 | Container path  | Permissions | Description |
 |-----------------|-------------|-------------|
-|`/config`| rw | This is where the application stores the rclone.conf, plex_debrid settings.json, and any files needing persistence. CAUTION: rclone.conf is overwritten upon start/restart of the container. Do NOT use an existing rclone.conf file if you have other rclone services. |
-|`/log`| rw | This is where the application stores its log files. |
-|`/mnt`| rw | This is where rclone_RD will be mounted. Not required when only utilizing plex_debrid.   |
+|`/config`| rw | This is where the application stores the rclone.conf, plex_debrid settings.json, and any files needing persistence. CAUTION: rclone.conf is overwritten upon start/restart of the container. Do NOT use an existing rclone.conf file if you have other rclone services |
+|`/log`| rw | This is where the application stores its log files |
+|`/mnt`| rw | This is where rclone_RD will be mounted. Not required when only utilizing plex_debrid   |
 
 ## TODO
-- Add support for setting user/group -- currently runs as root
-- Add docker s6-overlay
-- Evaluate adding Plex Media Server to the container
-- Add support for other Media Servers - Emby, Jellyfin, etc. -- currently only supports Plex
+
+See the [pdrcrd roadmap](https://github.com/users/I-am-PUID-0/projects/2) for a list of planned features and enhancements.
 
 ## Deployment
 

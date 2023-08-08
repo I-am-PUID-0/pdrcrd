@@ -7,7 +7,7 @@ from cleanup import duplicate_cleanup
 def main():
     logger = get_logger()
 
-    version = '1.3.1'
+    version = '1.4.0'
 
     ascii_art = f'''
                                                                            
@@ -40,16 +40,16 @@ def main():
     thread.start()
 
     try:
-        if DUPECLEAN is None:
+        if not DUPECLEAN:
             pass
-        elif DUPECLEAN is not None:
+        elif DUPECLEAN:
             duplicate_cleanup.duplicate_cleanup()
     except Exception as e:
         logger.error(e)
 
     try:
-        if not RDAPIKEY is None:
-            if not RCLONEMN is None:
+        if RDAPIKEY or ADAPIKEY:
+            if RCLONEMN:
                 rclone.setup()
         else:
             raise MissingAPIKeyException()
@@ -57,9 +57,9 @@ def main():
         logger.error(e)
 
     try:
-        if not PLEXUSER is None:
+        if PLEXUSER:
             setup.pd_setup()
-            if not AUTOUPDATE is None:
+            if AUTOUPDATE:
                 update.auto_update()
             else:
                 update.update_disabled()

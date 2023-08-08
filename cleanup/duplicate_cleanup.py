@@ -52,7 +52,7 @@ def process_tv_shows():
                 media_id = ""
                 for media in episode.media:
                     for part in media.parts:
-                        if f"/{RCLONEMN}/" in part.file:
+                        if re.search(f"/{RCLONEMN}[0-9a-zA-Z_]*?/", part.file):
                             has_RCLONEMN = True
                             media_id = media.id
                         else:
@@ -110,7 +110,7 @@ def process_movies():
                 media_id = ""
                 for media in movie.media:
                     for part in media.parts:
-                        if f"/{RCLONEMN}/" in part.file:
+                        if re.search(f"/{RCLONEMN}[0-9a-zA-Z_]*?/", part.file):
                             has_RCLONEMN = True
                             media_id = media.id
                         else:

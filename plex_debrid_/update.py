@@ -93,16 +93,3 @@ def auto_update():
     elif not (AUTOUPDATE is None):
         logger.info("Automatic update interval set to " + format_time(auto_update_interval()))
         update_schedule()
-
-def format_time(interval):
-    interval_hours = int(interval)
-    interval_minutes = int((interval - interval_hours) * 60)
-
-    if interval_hours == 1 and interval_minutes == 0:
-        return "1 hour"
-    elif interval_hours == 1 and interval_minutes != 0:
-        return f"1 hour {interval_minutes} minutes"
-    elif interval_hours != 1 and interval_minutes == 0:
-        return f"{interval_hours} hours"
-    else:
-        return f"{interval_hours} hours {interval_minutes} minutes"

@@ -10,20 +10,30 @@ def check_plex_debrid():
         return False
 
 try:
-    if not (os.getenv("RD_API_KEY") is None):
-        rclone_mount_name = os.getenv('RCLONE_MOUNT_NAME')
-        if rclone_mount_name:
-            DIR = f'/data/{rclone_mount_name}/movies'
-            if  os.path.isdir(DIR):
-                pass
-            else:
-                raise Exception("The rclone mount is not accessible")
+    error_messages = []
 
-    if not (os.getenv("PLEX_USER") is None):
-        if check_plex_debrid():
-            pass
-        else:
-            raise Exception("The plex_debrid process is not running.")
+    if RDAPIKEY and ADAPIKEY:
+        RCLONEMN_RD = f"{RCLONEMN}_RD"
+        RCLONEMN_AD = f"{RCLONEMN}_AD"
+    else:
+        RCLONEMN_RD = RCLONEMN_AD = RCLONEMN
+
+    if RDAPIKEY:
+        DIR = f'/data/{RCLONEMN_RD}/movies'
+        if not os.path.isdir(DIR):
+            error_messages.append("The RealDebrid rclone mount is not accessible")
+
+    if ADAPIKEY:
+        DIR = f'/data/{RCLONEMN_AD}/links'
+        if not os.path.isdir(DIR):
+            error_messages.append("The AllDebrid rclone mount is not accessible")
+
+    if os.getenv("PLEX_USER"):
+        if not check_plex_debrid():
+            error_messages.append("The plex_debrid process is not running.")
+
+    if error_messages:
+        raise Exception(" | ".join(error_messages))
 
 except Exception as e:
     print(str(e), file=sys.stderr)
