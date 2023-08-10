@@ -12,18 +12,18 @@ def check_plex_debrid():
 try:
     error_messages = []
 
-    if RDAPIKEY and ADAPIKEY:
+    if RDAPIKEY and ADAPIKEY and RCLONEMN:
         RCLONEMN_RD = f"{RCLONEMN}_RD"
         RCLONEMN_AD = f"{RCLONEMN}_AD"
     else:
         RCLONEMN_RD = RCLONEMN_AD = RCLONEMN
 
-    if RDAPIKEY:
+    if RDAPIKEY and RCLONEMN:
         DIR = f'/data/{RCLONEMN_RD}/movies'
         if not os.path.isdir(DIR):
             error_messages.append("The RealDebrid rclone mount is not accessible")
 
-    if ADAPIKEY:
+    if ADAPIKEY and RCLONEMN:
         DIR = f'/data/{RCLONEMN_AD}/links'
         if not os.path.isdir(DIR):
             error_messages.append("The AllDebrid rclone mount is not accessible")
