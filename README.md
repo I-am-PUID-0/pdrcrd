@@ -6,8 +6,9 @@ A combined docker image for the unified deployment of **[itsToggle's](https://gi
 
 ## Features
  - [Optional independent or combined utilization of rclone_RD and plex_debrid](https://github.com/I-am-PUID-0/pdrcrd/wiki#optional-independent-or-combined-utilization-of-rclone_rd-and-plex_debrid)
+ - [Simultaneous independent rclone_RD mounts](https://github.com/I-am-PUID-0/pdrcrd/wiki#simultaneous-independent-rclone_rd-mounts)
  - [Bind-mounts rclone_RD to the host](https://github.com/I-am-PUID-0/pdrcrd/wiki#bind-mounts-rclone_rd-to-the-host)
- - [RealDebrid API Key passed to rclone_rd and plex_debrid via docker environment variable](https://github.com/I-am-PUID-0/pdrcrd/wiki#realdebrid-api-key-passed-to-rclone_rd-and-plex_debrid-via-docker-environment-variable)
+ - [Debrid service API Key passed to rclone_rd and plex_debrid via docker environment variable](https://github.com/I-am-PUID-0/pdrcrd/wiki#debrid-api-key-passed-to-rclone_rd-and-plex_debrid-via-docker-environment-variable)
  - [rclone_RD config automatically generated](https://github.com/I-am-PUID-0/pdrcrd/wiki#rclone_rd-config-automatically-generated)
  - [rclone_RD flags passed via docker environment variable](https://github.com/I-am-PUID-0/pdrcrd/wiki#rclone_rd-flags-passed-via-docker-environment-variable)
  - [Fuse.conf ```user_allow_other``` applied within the container vs. the host](https://github.com/I-am-PUID-0/pdrcrd/wiki#fuseconf-user_allow_other-applied-within-the-container-vs-the-host)
