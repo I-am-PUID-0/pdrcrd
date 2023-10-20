@@ -108,7 +108,7 @@ format: `<HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]`.
 |-----------------|-------------|-------------|
 |`/config`| rw | This is where the application stores the rclone.conf, plex_debrid settings.json, and any files needing persistence. CAUTION: rclone.conf is overwritten upon start/restart of the container. Do NOT use an existing rclone.conf file if you have other rclone services |
 |`/log`| rw | This is where the application stores its log files |
-|`/mnt`| rw | This is where rclone_RD will be mounted. Not required when only utilizing plex_debrid   |
+|`/data`| rw | This is where rclone_RD will be mounted. Not required when only utilizing plex_debrid   |
 
 ## TODO
 
