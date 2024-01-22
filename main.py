@@ -7,7 +7,7 @@ from cleanup import duplicate_cleanup
 def main():
     logger = get_logger()
 
-    version = '1.4.1'
+    version = '1.4.2'
 
     ascii_art = f'''
                                                                            

@@ -12,7 +12,7 @@ ENV \
   XDG_CONFIG_HOME=/config \
   TERM=xterm 
 RUN \
-  apk add --update --no-cache gcompat libstdc++ libxml2-utils curl tzdata nano ca-certificates wget fuse3 python3 build-base py3-pip python3-dev linux-headers && \
+  apk add --update --no-cache gcompat libstdc++ libxml2-utils curl tzdata nano ca-certificates wget fuse python3 build-base py3-pip python3-dev linux-headers && \
   ln -sf python3 /usr/bin/python && \
   mkdir /config && touch /config/ignored.txt && \     
   chmod 711 rclone-linux &&\
