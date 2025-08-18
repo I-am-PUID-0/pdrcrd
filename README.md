@@ -3,7 +3,24 @@
 ## Description
 A combined docker image for the unified deployment of **[itsToggle's](https://github.com/itsToggle)** projects -- **[plex_debrid](https://github.com/itsToggle/plex_debrid)** and **[rclone_RD](https://github.com/itsToggle/rclone_RD)**
 
+> [!IMPORTANT]
+> **pdrcrd is deprecated, but may still continue to function.**
 
+> [!TIP]
+> ### If you're looking for an **all-in-one solution** that includes a media server directly inside the container — fully integrated with Riven, cli_debrid, Decypharr, Zurg, rclone, and more!?
+> 
+> ### Check out [**DUMB (Debrid Unlimited Media Bridge)**](https://github.com/I-am-PUID-0/DUMB)
+>
+>⚙️ DUMB includes:
+> * A Web UI for service management, logs, and other useful features
+> * Plex Media Server, Emby, and Jellyfin
+> * Most common arr-based services (Sonarr, Radarr, Lidarr, etc.)
+> * Built-in support for Debrid workflows
+> * Single-container deployment for easier onboarding
+> * Tight integration between media prep, serving, and metadata handling
+> * [**View DUMB on GitHub **](https://github.com/I-am-PUID-0/DUMB)
+>
+>
 ## Features
  - [Optional independent or combined utilization of rclone_RD and plex_debrid](https://github.com/I-am-PUID-0/pdrcrd/wiki#optional-independent-or-combined-utilization-of-rclone_rd-and-plex_debrid)
  - [Simultaneous independent rclone_RD mounts](https://github.com/I-am-PUID-0/pdrcrd/wiki#simultaneous-independent-rclone_rd-mounts)
